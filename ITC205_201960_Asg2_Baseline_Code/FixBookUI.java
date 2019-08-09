@@ -3,27 +3,27 @@ import java.util.Scanner;
 
 public class FixBookUI {
 
-	public static enum UI_STATE { INITIALISED, READY, FIXING, COMPLETED };
+	public static enum UIState { INITIALISED, READY, FIXING, COMPLETED };
 
 	private FixBookControl CoNtRoL;
 	private Scanner input;
-	private UI_STATE StAtE;
+	private UIState StAtE;
 
 	
 	public FixBookUI(FixBookControl control) {
 		this.CoNtRoL = control;
 		input = new Scanner(System.in);
-		StAtE = UI_STATE.INITIALISED;
-		control.Set_Ui(this);
+		StAtE = UIState.INITIALISED;
+		control.SetUI(this);
 	}
 
 
-	public void Set_State(UI_STATE state) {
+	public void SetState(UIState state) {
 		this.StAtE = state;
 	}
 
 	
-	public void RuN() {
+	public void Run() {
 		output("Fix Book Use Case UI\n");
 		
 		while (true) {
@@ -33,12 +33,12 @@ public class FixBookUI {
 			case READY:
 				String Book_STR = input("Scan Book (<enter> completes): ");
 				if (Book_STR.length() == 0) {
-					CoNtRoL.SCannING_COMplete();
+					CoNtRoL.scanningComplete();
 				}
 				else {
 					try {
 						int Book_ID = Integer.valueOf(Book_STR).intValue();
-						CoNtRoL.Book_scanned(Book_ID);
+						CoNtRoL.bookScanned(Book_ID);
 					}
 					catch (NumberFormatException e) {
 						output("Invalid bookId");
@@ -69,18 +69,18 @@ public class FixBookUI {
 	}
 
 	
-	private String input(String prompt) {
+	private String Input(String prompt) {
 		System.out.print(prompt);
 		return input.nextLine();
 	}	
 		
 		
-	private void output(Object object) {
+	private void Output(Object object) {
 		System.out.println(object);
 	}
 	
 
-	public void display(Object object) {
+	public void Display(Object object) {
 		output(object);
 	}
 	

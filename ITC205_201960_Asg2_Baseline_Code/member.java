@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("serial")
-public class member implements Serializable {
+public class Member implements Serializable {
 
 	private String LN;
 	private String FN;
@@ -17,7 +17,7 @@ public class member implements Serializable {
 	private Map<Integer, loan> LNS;
 
 	
-	public member(String lastName, String firstName, String email, int phoneNo, int id) {
+	public Member(String lastName, String firstName, String email, int phoneNo, int id) {
 		this.LN = lastName;
 		this.FN = firstName;
 		this.EM = email;
@@ -45,27 +45,27 @@ public class member implements Serializable {
 	}
 
 	
-	public int GeT_ID() {
+	public int GetID() {
 		return ID;
 	}
 
 	
-	public List<loan> GeT_LoAnS() {
-		return new ArrayList<loan>(LNS.values());
+	public List<loan> GetLoans() {
+		return new ArrayList<loan>(LNS.getValues());
 	}
 
 	
-	public int Number_Of_Current_Loans() {
+	public int NumberOfCurrentLoans() {
 		return LNS.size();
 	}
 
 	
-	public double Fines_OwEd() {
+	public double FinesOwed() {
 		return FINES;
 	}
 
 	
-	public void Take_Out_Loan(loan loan) {
+	public void TakeOutLoan(loan loan) {
 		if (!LNS.containsKey(loan.ID())) {
 			LNS.put(loan.ID(), loan);
 		}
@@ -75,21 +75,21 @@ public class member implements Serializable {
 	}
 
 	
-	public String Get_LastName() {
+	public String GetLastName() {
 		return LN;
 	}
 
 	
-	public String Get_FirstName() {
+	public String GetFirstName() {
 		return FN;
 	}
 
 
-	public void Add_Fine(double fine) {
+	public void AddFine(double fine) {
 		FINES += fine;
 	}
 	
-	public double Pay_Fine(double AmOuNt) {
+	public double PayFine(double AmOuNt) {
 		if (AmOuNt < 0) {
 			throw new RuntimeException("Member.payFine: amount must be positive");
 		}
@@ -105,7 +105,7 @@ public class member implements Serializable {
 	}
 
 
-	public void dIsChArGeLoAn(loan LoAn) {
+	public void DischargeLoan(loan LoAn) {
 		if (LNS.containsKey(LoAn.ID())) {
 			LNS.remove(LoAn.ID());
 		}

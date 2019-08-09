@@ -1,30 +1,28 @@
 import java.util.Scanner;
 
-
 public class PayFineUI {
 
-
-	public static enum UI_STATE { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
+	public static enum UIState { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
 
 	private PayFineControl CoNtRoL;
 	private Scanner input;
-	private UI_STATE StAtE;
+	private UISTATE StAtE;
 
 	
 	public PayFineUI(PayFineControl control) {
 		this.CoNtRoL = control;
 		input = new Scanner(System.in);
-		StAtE = UI_STATE.INITIALISED;
+		StAtE = UISTATE.INITIALISED;
 		control.Set_UI(this);
 	}
 	
 	
-	public void Set_State(UI_STATE state) {
+	public void SetState(UI_STATE state) {
 		this.StAtE = state;
 	}
 
 
-	public void RuN() {
+	public void Run() {
 		output("Pay Fine Use Case UI\n");
 		
 		while (true) {
@@ -81,18 +79,18 @@ public class PayFineUI {
 	}
 
 	
-	private String input(String prompt) {
+	private String Input(String prompt) {
 		System.out.print(prompt);
 		return input.nextLine();
 	}	
 		
 		
-	private void output(Object object) {
+	private void Output(Object object) {
 		System.out.println(object);
 	}	
 			
 
-	public void DiSplAY(Object object) {
+	public void Display(Object object) {
 		output(object);
 	}
 

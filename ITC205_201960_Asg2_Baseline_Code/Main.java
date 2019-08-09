@@ -5,13 +5,13 @@ import java.util.Scanner;
 public class Main {
 	
 	private static Scanner IN;
-	private static library LIB;
+	private static Library LIB;
 	private static String MENU;
 	private static Calendar CAL;
 	private static SimpleDateFormat SDF;
 	
 	
-	private static String Get_menu() {
+	private static String GetMenu() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("\nLibrary Main Menu\n\n")
@@ -44,15 +44,15 @@ public class Main {
 			CAL = Calendar.INSTANCE();
 			SDF = new SimpleDateFormat("dd/MM/yyyy");
 	
-			for (member m : LIB.MEMBERS()) {
+			for (member m : LIB.Members()) {
 				output(m);
 			}
 			output(" ");
-			for (book b : LIB.BOOKS()) {
+			for (book b : LIB.Books()) {
 				output(b);
 			}
 						
-			MENU = Get_menu();
+			MENU = GetMenu();
 			
 			boolean e = false;
 			
@@ -64,43 +64,43 @@ public class Main {
 				switch (c.toUpperCase()) {
 				
 				case "M": 
-					ADD_MEMBER();
+					AddMember();
 					break;
 					
 				case "LM": 
-					MEMBERS();
+					Members();
 					break;
 					
 				case "B": 
-					ADD_BOOK();
+					AddBook();
 					break;
 					
 				case "LB": 
-					BOOKS();
+					Books();
 					break;
 					
 				case "FB": 
-					FIX_BOOKS();
+					FixBooks();
 					break;
 					
 				case "L": 
-					BORROW_BOOK();
+					BorrowBook();
 					break;
 					
 				case "R": 
-					RETURN_BOOK();
+					ReturnBook();
 					break;
 					
 				case "LL": 
-					CURRENT_LOANS();
+					CurrentLoans();
 					break;
 					
 				case "P": 
-					FINES();
+					Fines();
 					break;
 					
 				case "T": 
-					INCREMENT_DATE();
+					IncrementDate();
 					break;
 					
 				case "Q": 
@@ -108,11 +108,11 @@ public class Main {
 					break;
 					
 				default: 
-					output("\nInvalid option\n");
+					Output("\nInvalid option\n");
 					break;
 				}
 				
-				library.SAVE();
+				Library.SAVE();
 			}			
 		} catch (RuntimeException e) {
 			output(e);
@@ -120,12 +120,13 @@ public class Main {
 		output("\nEnded\n");
 	}	
 
-		private static void FINES() {
-		new PayFineUI(new PayFineControl()).RuN();		
+	
+	private static void Fines() {
+		new PayFineUI(new PayFineControl()).Run();		
 	}
 
 
-	private static void CURRENT_LOANS() {
+	private static void CurrentLoans() {
 		output("");
 		for (loan loan : LIB.CurrentLoans()) {
 			output(loan + "\n");
@@ -134,7 +135,7 @@ public class Main {
 
 
 
-	private static void BOOKS() {
+	private static void Books() {
 		output("");
 		for (book book : LIB.BOOKS()) {
 			output(book + "\n");
@@ -143,7 +144,7 @@ public class Main {
 
 
 
-	private static void MEMBERS() {
+	private static void Members() {
 		output("");
 		for (member member : LIB.MEMBERS()) {
 			output(member + "\n");
@@ -152,22 +153,22 @@ public class Main {
 
 
 
-	private static void BORROW_BOOK() {
-		new BorrowBookUI(new BorrowBookControl()).run();		
+	private static void BorrowBook() {
+		new BorrowBookUI(new BorrowBookControl()).Run();		
 	}
 
 
-	private static void RETURN_BOOK() {
-		new ReturnBookUI(new ReturnBookControl()).RuN();		
+	private static void ReturnBook() {
+		new ReturnBookUI(new ReturnBookControl()).Run();		
 	}
 
 
-	private static void FIX_BOOKS() {
-		new FixBookUI(new FixBookControl()).RuN();		
+	private static void FixBooks() {
+		new FixBookUI(new FixBookControl()).Run();		
 	}
 
 
-	private static void INCREMENT_DATE() {
+	private static void IncrementDate() {
 		try {
 			int days = Integer.valueOf(input("Enter number of days: ")).intValue();
 			CAL.incrementDate(days);
@@ -180,7 +181,7 @@ public class Main {
 	}
 
 
-	private static void ADD_BOOK() {
+	private static void AddBook() {
 		
 		String A = input("Enter author: ");
 		String T  = input("Enter title: ");
@@ -191,7 +192,7 @@ public class Main {
 	}
 
 	
-	private static void ADD_MEMBER() {
+	private static void AddMember() {
 		try {
 			String LN = input("Enter last name: ");
 			String FN  = input("Enter first name: ");
@@ -207,14 +208,14 @@ public class Main {
 	}
 
 
-	private static String input(String prompt) {
+	private static String Input(String prompt) {
 		System.out.print(prompt);
 		return IN.nextLine();
 	}
 	
 	
 	
-	private static void output(Object object) {
+	private static void Output(Object object) {
 		System.out.println(object);
 	}
 

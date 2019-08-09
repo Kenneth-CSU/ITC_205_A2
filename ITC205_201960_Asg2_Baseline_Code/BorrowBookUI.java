@@ -3,38 +3,38 @@ import java.util.Scanner;
 
 public class BorrowBookUI {
 	
-	public static enum UI_STATE { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
+	public static enum UIState { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
 
 	private BorrowBookControl CONTROL;
 	private Scanner input;
-	private UI_STATE StaTe;
+	private UIState StaTe;
 
 	
 	public BorrowBookUI(BorrowBookControl control) {
 		this.CONTROL = control;
 		input = new Scanner(System.in);
-		StaTe = UI_STATE.INITIALISED;
+		StaTe = UIState.INITIALISED;
 		control.setUI(this);
 	}
 
 	
-	private String input(String prompt) {
+	private String Input(String prompt) {
 		System.out.print(prompt);
 		return input.nextLine();
 	}	
 		
 		
-	private void output(Object object) {
+	private void Output(Object object) {
 		System.out.println(object);
 	}
 	
 			
-	public void Set_State(UI_STATE STATE) {
+	public void SetState(UIState STATE) {
 		this.StaTe = STATE;
 	}
 
 	
-	public void run() {
+	public void Run() {
 		output("Borrow Book Use Case UI\n");
 		
 		while (true) {
@@ -54,7 +54,7 @@ public class BorrowBookUI {
 				}
 				try {
 					int Member_ID = Integer.valueOf(MEM_STR).intValue();
-					CONTROL.Swiped(Member_ID);
+					CONTROL.swiped(Member_ID);
 				}
 				catch (NumberFormatException e) {
 					output("Invalid Member Id");
@@ -71,7 +71,7 @@ public class BorrowBookUI {
 			case SCANNING:
 				String Book_Str = input("Scan Book (<enter> completes): ");
 				if (Book_Str.length() == 0) {
-					CONTROL.Complete();
+					CONTROL.complete();
 					break;
 				}
 				try {
@@ -90,7 +90,7 @@ public class BorrowBookUI {
 					CONTROL.cancel();
 					
 				} else {
-					CONTROL.Commit_LOans();
+					CONTROL.commitLoans();
 					input("Press <any key> to complete ");
 				}
 				break;

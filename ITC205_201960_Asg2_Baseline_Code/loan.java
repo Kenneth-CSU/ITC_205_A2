@@ -3,36 +3,36 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class loan implements Serializable {
+public class Loan implements Serializable {
 	
-	public static enum LOAN_STATE { CURRENT, OVER_DUE, DISCHARGED };
+	public static enum LoanState { CURRENT, OVER_DUE, DISCHARGED };
 	
 	private int ID;
-	private book B;
-	private member M;
+	private Book B;
+	private Member M;
 	private Date D;
-	private LOAN_STATE state;
+	private LoanState state;
 
 	
-	public loan(int loanId, book book, member member, Date dueDate) {
+	public Loan(int loanId, Book book, Member member, Date dueDate) {
 		this.ID = loanId;
 		this.B = book;
 		this.M = member;
 		this.D = dueDate;
-		this.state = LOAN_STATE.CURRENT;
+		this.state = LoanState.CURRENT;
 	}
 
 	
-	public void checkOverDue() {
-		if (state == LOAN_STATE.CURRENT &&
+	public void CheckOverdue() {
+		if (state == LoanState.CURRENT &&
 			Calendar.INSTANCE().Date().after(D)) {
-			this.state = LOAN_STATE.OVER_DUE;			
+			this.state = LoanState.OVER_DUE;			
 		}
 	}
 
 	
-	public boolean OVer_Due() {
-		return state == LOAN_STATE.OVER_DUE;
+	public boolean Overdue() {
+		return state == LoanState.OVER_DUE;
 	}
 
 	
@@ -41,7 +41,7 @@ public class loan implements Serializable {
 	}
 
 
-	public Date Get_Due_Date() {
+	public Date GetDueDate() {
 		return D;
 	}
 	
@@ -71,8 +71,8 @@ public class loan implements Serializable {
 	}
 
 
-	public void DiScHaRgE() {
-		state = LOAN_STATE.DISCHARGED;		
+	public void Discharge() {
+		state = LoanState.DISCHARGED;		
 	}
 
 }

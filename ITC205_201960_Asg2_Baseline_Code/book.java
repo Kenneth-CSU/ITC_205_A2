@@ -2,23 +2,23 @@ import java.io.Serializable;
 
 
 @SuppressWarnings("serial")
-public class book implements Serializable {
+public class Book implements Serializable {
 	
 	private String TITLE;
 	private String AUTHOR;
 	private String CALLNO;
 	private int ID;
 	
-	private enum STATE { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
-	private STATE State;
+	private enum State { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
+	private State State;
 	
 	
-	public book(String author, String title, String callNo, int id) {
+	public Book(String author, String title, String callNo, int id) {
 		this.AUTHOR = author;
 		this.TITLE = title;
 		this.CALLNO = callNo;
 		this.ID = id;
-		this.State = STATE.AVAILABLE;
+		this.State = State.AVAILABLE;
 	}
 	
 	public String toString() {
@@ -36,30 +36,30 @@ public class book implements Serializable {
 		return ID;
 	}
 
-	public String TITLE() {
+	public String Title() {
 		return TITLE;
 	}
 
 
 	
-	public boolean AVAILABLE() {
-		return State == STATE.AVAILABLE;
+	public boolean isAvailable() {
+		return State == State.AVAILABLE;
 	}
 
 	
-	public boolean On_loan() {
-		return State == STATE.ON_LOAN;
+	public boolean isOnLoan() {
+		return State == State.ON_LOAN;
 	}
 
 	
-	public boolean IS_Damaged() {
-		return State == STATE.DAMAGED;
+	public boolean isDamaged() {
+		return State == State.DAMAGED;
 	}
 
 	
 	public void Borrow() {
-		if (State.equals(STATE.AVAILABLE)) {
-			State = STATE.ON_LOAN;
+		if (State.equals(State.AVAILABLE)) {
+			State = State.ON_LOAN;
 		}
 		else {
 			throw new RuntimeException(String.format("Book: cannot borrow while book is in state: %s", State));
@@ -69,12 +69,12 @@ public class book implements Serializable {
 
 
 	public void Return(boolean DAMAGED) {
-		if (State.equals(STATE.ON_LOAN)) {
+		if (State.equals(State.ON_LOAN)) {
 			if (DAMAGED) {
-				State = STATE.DAMAGED;
+				State = State.DAMAGED;
 			}
 			else {
-				State = STATE.AVAILABLE;
+				State = State.AVAILABLE;
 			}
 		}
 		else {
@@ -84,8 +84,8 @@ public class book implements Serializable {
 
 	
 	public void Repair() {
-		if (State.equals(STATE.DAMAGED)) {
-			State = STATE.AVAILABLE;
+		if (State.equals(State.DAMAGED)) {
+			State = State.AVAILABLE;
 		}
 		else {
 			throw new RuntimeException(String.format("Book: cannot repair while book is in state: %s", State));

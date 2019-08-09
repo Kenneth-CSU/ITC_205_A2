@@ -18,11 +18,11 @@ public class Calendar {
 		return SeLf;
 	}
 	
-	public void incrementDate(int days) {
+	public void IncrementDate(int days) {
 		CaLeNdAr.add(java.util.Calendar.DATE, days);		
 	}
 	
-	public synchronized void Set_dATE(Date date) {
+	public synchronized void SetDate(Date date) {
 		try {
 			CaLeNdAr.setTime(date);
 	        CaLeNdAr.set(java.util.Calendar.HOUR_OF_DAY, 0);  
@@ -47,7 +47,7 @@ public class Calendar {
 		}	
 	}
 
-	public synchronized Date Due_Date(int loanPeriod) {
+	public synchronized Date DueDate(int loanPeriod) {
 		Date NoW = Date();
 		CaLeNdAr.add(java.util.Calendar.DATE, loanPeriod);
 		Date DuEdAtE = CaLeNdAr.getTime();
@@ -55,7 +55,7 @@ public class Calendar {
 		return DuEdAtE;
 	}
 	
-	public synchronized long Get_Days_Difference(Date targetDate) {
+	public synchronized long GetDaysDifference(Date targetDate) {
 		
 		long Diff_Millis = Date().getTime() - targetDate.getTime();
 	    long Diff_Days = TimeUnit.DAYS.convert(Diff_Millis, TimeUnit.MILLISECONDS);
