@@ -6,7 +6,7 @@ public class Main {
 	
 	private static Scanner inputScanner;
 	private static library thisLibrary;
-	private static String menu;
+	private static String menuEntries;
 	private static Calendar thisCalendar;
 	private static SimpleDateFormat simpleDateFormat;
 	
@@ -52,16 +52,16 @@ public class Main {
 				output(thisBook);
 			}
 						
-			menu = Get_menu();
+			menuEntries = Get_menu();
 			
-			boolean e = false;
+			boolean loopState = false;
 			
-			while (!e) {
+			while (!loopState) {
 				
 				output("\n" + simpleDateFormat.format(thisCalendar.Date()));
-				String c = input(menu);
+				String menuInput = input(menuEntries);
 				
-				switch (c.toUpperCase()) {
+				switch (menuInput.toUpperCase()) {
 				
 				case "M": 
 					ADD_MEMBER();
@@ -104,7 +104,7 @@ public class Main {
 					break;
 					
 				case "Q": 
-					e = true;
+					loopState = true;
 					break;
 					
 				default: 
@@ -114,8 +114,8 @@ public class Main {
 				
 				library.SAVE();
 			}			
-		} catch (RuntimeException e) {
-			output(e);
+		} catch (RuntimeException errorType) {
+			output(errorType);
 		}		
 		output("\nEnded\n");
 	}	

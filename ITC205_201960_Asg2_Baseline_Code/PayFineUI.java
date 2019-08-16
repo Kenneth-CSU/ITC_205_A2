@@ -6,21 +6,21 @@ public class PayFineUI {
 
 	public static enum UI_STATE { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
 
-	private PayFineControl CoNtRoL;
-	private Scanner input;
-	private UI_STATE StAtE;
+	private PayFineControl paymentControl;	
+	private Scanner inputScanner;
+	private UI_STATE uiState;
 
 	
-	public PayFineUI(PayFineControl control) {
-		this.CoNtRoL = control;
-		input = new Scanner(System.in);
-		StAtE = UI_STATE.INITIALISED;
-		control.Set_UI(this);
+	public PayFineUI(PayFineControl newPayment) {
+		this.paymentControl = newPayment;
+		inputScanner = new Scanner(System.in);
+		uiState = UI_STATE.INITIALISED;
+		newPayment.Set_UI(this);
 	}
 	
 	
 	public void Set_State(UI_STATE state) {
-		this.StAtE = state;
+		this.uiState = state;
 	}
 
 
@@ -29,17 +29,17 @@ public class PayFineUI {
 		
 		while (true) {
 			
-			switch (StAtE) {
+			switch (uiState) {
 			
 			case READY:
-				String Mem_Str = input("Swipe member card (press <enter> to cancel): ");
-				if (Mem_Str.length() == 0) {
-					CoNtRoL.CaNcEl();
+				String memberCardRead = input("Swipe member card (press <enter> to cancel): ");
+				if (memberCardRead.length() == 0) {
+					paymentControl.CaNcEl();
 					break;
 				}
 				try {
-					int Member_ID = Integer.valueOf(Mem_Str).intValue();
-					CoNtRoL.Card_Swiped(Member_ID);
+					int Member_ID = Integer.valueOf(memberCardRead).intValue();
+					paymentControl.Card_Swiped(Member_ID);
 				}
 				catch (NumberFormatException e) {
 					output("Invalid memberId");
@@ -47,21 +47,21 @@ public class PayFineUI {
 				break;
 				
 			case PAYING:
-				double AmouNT = 0;
-				String Amt_Str = input("Enter amount (<Enter> cancels) : ");
-				if (Amt_Str.length() == 0) {
-					CoNtRoL.CaNcEl();
+				double paymentAmount = 0;
+				String newPaymentAmount = input("Enter amount (<Enter> cancels) : ");
+				if (newPaymentAmount.length() == 0) {
+					paymentControl.CaNcEl();
 					break;
 				}
 				try {
-					AmouNT = Double.valueOf(Amt_Str).doubleValue();
+					paymentAmount = Double.valueOf(newPaymentAmount).doubleValue();
 				}
 				catch (NumberFormatException e) {}
-				if (AmouNT <= 0) {
+				if (paymentAmount <= 0) {
 					output("Amount must be positive");
 					break;
 				}
-				CoNtRoL.PaY_FiNe(AmouNT);
+				paymentControl.PaY_FiNe(paymentAmount);
 				break;
 								
 			case CANCELLED:
@@ -74,7 +74,7 @@ public class PayFineUI {
 			
 			default:
 				output("Unhandled state");
-				throw new RuntimeException("FixBookUI : unhandled state :" + StAtE);			
+				throw new RuntimeException("FixBookUI : unhandled state :" + uiState);			
 			
 			}		
 		}		
@@ -83,7 +83,7 @@ public class PayFineUI {
 	
 	private String input(String prompt) {
 		System.out.print(prompt);
-		return input.nextLine();
+		return inputScanner.nextLine();
 	}	
 		
 		
