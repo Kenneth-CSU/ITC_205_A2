@@ -7,72 +7,72 @@ public class loan implements Serializable {
 	
 	public static enum LOAN_STATE { CURRENT, OVER_DUE, DISCHARGED };
 	
-	private int ID;
-	private book B;
-	private member M;
-	private Date D;
-	private LOAN_STATE state;
+	private int loanId;
+	private book book;
+	private member member;
+	private Date dueDate;
+	private LOAN_STATE loanState;
 
 	
 	public loan(int loanId, book book, member member, Date dueDate) {
-		this.ID = loanId;
-		this.B = book;
-		this.M = member;
-		this.D = dueDate;
-		this.state = LOAN_STATE.CURRENT;
+		this.loanId = loanId;
+		this.book = book;
+		this.member = member;
+		this.dueDate = dueDate;
+		this.loanState = LOAN_STATE.CURRENT;
 	}
 
 	
 	public void checkOverDue() {
-		if (state == LOAN_STATE.CURRENT &&
-			Calendar.INSTANCE().Date().after(D)) {
-			this.state = LOAN_STATE.OVER_DUE;			
+		if (loanState == LOAN_STATE.CURRENT &&
+			Calendar.INSTANCE().Date().after(dueDate)) {
+			this.loanState = LOAN_STATE.OVER_DUE;			
 		}
 	}
 
 	
 	public boolean OVer_Due() {
-		return state == LOAN_STATE.OVER_DUE;
+		return loanState == LOAN_STATE.OVER_DUE;
 	}
 
 	
 	public Integer ID() {
-		return ID;
+		return loanId;
 	}
 
 
 	public Date Get_Due_Date() {
-		return D;
+		return dueDate;
 	}
 	
 	
 	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-		StringBuilder sb = new StringBuilder();
-		sb.append("Loan:  ").append(ID).append("\n")
-		  .append("  Borrower ").append(M.GeT_ID()).append(" : ")
-		  .append(M.Get_LastName()).append(", ").append(M.Get_FirstName()).append("\n")
-		  .append("  Book ").append(B.ID()).append(" : " )
-		  .append(B.TITLE()).append("\n")
-		  .append("  DueDate: ").append(sdf.format(D)).append("\n")
-		  .append("  State: ").append(state);		
-		return sb.toString();
+		StringBuilder menuEntries = new StringBuilder();
+		menuEntries.append("Loan:  ").append(loanId).append("\n")
+		  .append("  Borrower ").append(member.GeT_ID()).append(" : ")
+		  .append(member.Get_LastName()).append(", ").append(member.Get_FirstName()).append("\n")
+		  .append("  Book ").append(book.ID()).append(" : " )
+		  .append(book.TITLE()).append("\n")
+		  .append("  DueDate: ").append(simpleDateFormat.format(dueDate)).append("\n")
+		  .append("  State: ").append(loanState);		
+		return menuEntries.toString();
 	}
 
 
 	public member Member() {
-		return M;
+		return member;
 	}
 
 
 	public book Book() {
-		return B;
+		return book;
 	}
 
 
 	public void DiScHaRgE() {
-		state = LOAN_STATE.DISCHARGED;		
+		loanState = LOAN_STATE.DISCHARGED;		
 	}
 
 }
