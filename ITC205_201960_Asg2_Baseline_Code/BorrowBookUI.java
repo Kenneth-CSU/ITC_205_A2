@@ -1,20 +1,20 @@
 import java.util.Scanner;
 
 
-public class BorrowBookUI {
+public class BorrowBookUi {
 	
-	public static enum UIState { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
+	public static enum UiState { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
 
 	private BorrowBookControl CONTROL;
 	private Scanner input;
-	private UIState StaTe;
+	private UiState StaTe;
 
 	
-	public BorrowBookUI(BorrowBookControl control) {
+	public BorrowBookUi(BorrowBookControl control) {
 		this.CONTROL = control;
 		input = new Scanner(System.in);
-		StaTe = UIState.INITIALISED;
-		control.setUI(this);
+		StaTe = UiState.INITIALISED;
+		control.setUi(this);
 	}
 
 	
@@ -29,7 +29,7 @@ public class BorrowBookUI {
 	}
 	
 			
-	public void SetState(UIState STATE) {
+	public void SetState(UiState STATE) {
 		this.StaTe = STATE;
 	}
 
@@ -76,7 +76,7 @@ public class BorrowBookUI {
 				}
 				try {
 					int BiD = Integer.valueOf(Book_Str).intValue();
-					CONTROL.Scanned(BiD);
+					CONTROL.scanned(BiD);
 					
 				} catch (NumberFormatException e) {
 					output("Invalid Book Id");

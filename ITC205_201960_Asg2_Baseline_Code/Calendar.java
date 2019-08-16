@@ -11,7 +11,7 @@ public class Calendar {
 		CaLeNdAr = java.util.Calendar.getInstance();
 	}
 	
-	public static Calendar INSTANCE() {
+	public static Calendar Instance() {
 		if (SeLf == null) {
 			SeLf = new Calendar();
 		}

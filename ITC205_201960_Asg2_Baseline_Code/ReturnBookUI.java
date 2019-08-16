@@ -1,20 +1,20 @@
 import java.util.Scanner;
 
 
-public class ReturnBookUI {
+public class ReturnBookUi {
 
-	public static enum UIState { INITIALISED, READY, INSPECTING, COMPLETED };
+	public static enum UiState { INITIALISED, READY, INSPECTING, COMPLETED };
 
 	private ReturnBookControl CoNtRoL;
 	private Scanner input;
-	private UIState StATe;
+	private UiState StATe;
 
 	
-	public ReturnBookUI(ReturnBookControl control) {
+	public ReturnBookUi(ReturnBookControl control) {
 		this.CoNtRoL = control;
 		input = new Scanner(System.in);
-		StATe = UIState.INITIALISED;
-		control.setUI(this);
+		StATe = UiState.INITIALISED;
+		control.setUi(this);
 	}
 
 
@@ -64,22 +64,22 @@ public class ReturnBookUI {
 	}
 
 	
-	private String input(String prompt) {
+	private String Input(String prompt) {
 		System.out.print(prompt);
 		return input.nextLine();
 	}	
 		
 		
-	private void output(Object object) {
+	private void Output(Object object) {
 		System.out.println(object);
 	}
 	
 			
-	public void display(Object object) {
+	public void Display(Object object) {
 		output(object);
 	}
 	
-	public void Set_State(UI_STATE state) {
+	public void SetState(UI_STATE state) {
 		this.StATe = state;
 	}
 

@@ -16,17 +16,17 @@ public class BorrowBookControl {
 	
 	
 	public BorrowBookControl() {
-		this.LIBRARY = LIBRARY.INSTANCE();
+		this.LIBRARY = LIBRARY.instance();
 		State = ControlState.INITIALISED;
 	}
 	
 
-	public void setUI(BorrowBookUI ui) {
+	public void SetUi(BorrowBookUI ui) {
 		if (!State.equals(ControlState.INITIALISED)) 
 			throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
 			
 		this.UI = ui;
-		ui.SetState(BorrowBookUI.UIState.READY);
+		ui.setState(BorrowBookUI.UiState.READY);
 		State = ControlState.READY;		
 	}
 
@@ -35,19 +35,19 @@ public class BorrowBookControl {
 		if (!State.equals(ControlState.READY)) 
 			throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
 			
-		M = LIBRARY.MEMBER(MEMMER_ID);
+		M = LIBRARY.member(MEMMER_ID);
 		if (M == null) {
-			UI.Display("Invalid memberId");
+			UI.display("Invalid memberId");
 			return;
 		}
 		if (LIBRARY.MEMBER_CAN_BORROW(M)) {
 			PENDING = new ArrayList<>();
-			UI.SetState(BorrowBookUI.UIState.SCANNING);
+			UI.setState(BorrowBookUI.uiState.SCANNING);
 			State = ControlState.SCANNING; }
 		else 
 		{
 			UI.Display("Member cannot borrow at this time");
-			UI.SetState(BorrowBookUI.UIState.RESTRICTED); }}
+			UI.SetState(BorrowBookUI.uiState.RESTRICTED); }}
 	
 	
 	public void Scanned(int bookId) {
@@ -55,12 +55,12 @@ public class BorrowBookControl {
 		if (!State.equals(ControlState.SCANNING)) {
 			throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
 		}	
-		BOOK = LIBRARY.Book(bookId);
+		BOOK = LIBRARY.book(bookId);
 		if (BOOK == null) {
 			UI.display("Invalid bookId");
 			return;
 		}
-		if (!BOOK.AVAILABLE()) {
+		if (!BOOK.isAvailable()) {
 			UI.display("Book cannot be borrowed");
 			return;
 		}
@@ -69,7 +69,7 @@ public class BorrowBookControl {
 			UI.display(B.toString());
 		}
 		if (LIBRARY.loansRemainingForMember(M) - PENDING.size() == 0) {
-			UI.Display("Loan limit reached");
+			UI.display("Loan limit reached");
 			Complete();
 		}
 	}
@@ -80,12 +80,12 @@ public class BorrowBookControl {
 			Cancel();
 		}
 		else {
-			UI.Display("\nFinal Borrowing List");
+			UI.display("\nFinal Borrowing List");
 			for (book B : PENDING) {
 				UI.display(B.toString());
 			}
 			COMPLETED = new ArrayList<loan>();
-			UI.SetState(BorrowBookUI.UIState.FINALISING);
+			UI.SetState(BorrowBookUI.uiState.FINALISING);
 			State = ControlState.FINALISING;
 		}
 	}
@@ -96,20 +96,20 @@ public class BorrowBookControl {
 			throw new RuntimeException("BorrowBookControl: cannot call commitLoans except in FINALISING state");
 		}	
 		for (book B : PENDING) {
-			loan LOAN = LIBRARY.ISSUE_LAON(B, M);
+			loan LOAN = LIBRARY.issueLoan(B, M);
 			COMPLETED.add(LOAN);			
 		}
-		UI.Display("Completed Loan Slip");
+		UI.display("Completed Loan Slip");
 		for (loan LOAN : COMPLETED) {
 			UI.display(LOAN.toString());
 		}
-		UI.Set_State(BorrowBookUI.UIState.COMPLETED);
+		UI.setState(BorrowBookUI.uiState.COMPLETED);
 		State = ControlState.COMPLETED;
 	}
 
 	
 	public void Cancel() {
-		UI.SetState(BorrowBookUI.UIState.CANCELLED);
+		UI.SetState(BorrowBookUI.UiState.CANCELLED);
 		State = ControlState.CANCELLED;
 	}
 	

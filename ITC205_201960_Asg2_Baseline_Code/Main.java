@@ -40,15 +40,15 @@ public class Main {
 	public static void main(String[] args) {		
 		try {			
 			IN = new Scanner(System.in);
-			LIB = library.INSTANCE();
-			CAL = Calendar.INSTANCE();
+			LIB = library.instance();
+			CAL = Calendar.instance();
 			SDF = new SimpleDateFormat("dd/MM/yyyy");
 	
-			for (member m : LIB.Members()) {
+			for (member m : LIB.members()) {
 				output(m);
 			}
 			output(" ");
-			for (book b : LIB.Books()) {
+			for (book b : LIB.books()) {
 				output(b);
 			}
 						
@@ -58,7 +58,7 @@ public class Main {
 			
 			while (!e) {
 				
-				output("\n" + SDF.format(CAL.Date()));
+				output("\n" + SDF.format(CAL.date()));
 				String c = input(MENU);
 				
 				switch (c.toUpperCase()) {
@@ -112,7 +112,7 @@ public class Main {
 					break;
 				}
 				
-				Library.SAVE();
+				Library.save();
 			}			
 		} catch (RuntimeException e) {
 			output(e);
@@ -128,7 +128,7 @@ public class Main {
 
 	private static void CurrentLoans() {
 		output("");
-		for (loan loan : LIB.CurrentLoans()) {
+		for (loan loan : LIB.currentLoans()) {
 			output(loan + "\n");
 		}		
 	}
@@ -137,7 +137,7 @@ public class Main {
 
 	private static void Books() {
 		output("");
-		for (book book : LIB.BOOKS()) {
+		for (book book : LIB.books()) {
 			output(book + "\n");
 		}		
 	}
@@ -146,7 +146,7 @@ public class Main {
 
 	private static void Members() {
 		output("");
-		for (member member : LIB.MEMBERS()) {
+		for (member member : LIB.members()) {
 			output(member + "\n");
 		}		
 	}
@@ -154,17 +154,17 @@ public class Main {
 
 
 	private static void BorrowBook() {
-		new BorrowBookUI(new BorrowBookControl()).Run();		
+		new BorrowBookUI(new BorrowBookControl()).run();		
 	}
 
 
 	private static void ReturnBook() {
-		new ReturnBookUI(new ReturnBookControl()).Run();		
+		new ReturnBookUI(new ReturnBookControl()).run();		
 	}
 
 
 	private static void FixBooks() {
-		new FixBookUI(new FixBookControl()).Run();		
+		new FixBookUI(new FixBookControl()).run();		
 	}
 
 
@@ -173,7 +173,7 @@ public class Main {
 			int days = Integer.valueOf(input("Enter number of days: ")).intValue();
 			CAL.incrementDate(days);
 			LIB.checkCurrentLoans();
-			output(SDF.format(CAL.Date()));
+			output(SDF.format(CAL.date()));
 			
 		} catch (NumberFormatException e) {
 			 output("\nInvalid number of days\n");
@@ -186,7 +186,7 @@ public class Main {
 		String A = input("Enter author: ");
 		String T  = input("Enter title: ");
 		String C = input("Enter call number: ");
-		book B = LIB.Add_book(A, T, C);
+		book B = LIB.addBook(A, T, C);
 		output("\n" + B + "\n");
 		
 	}
@@ -198,7 +198,7 @@ public class Main {
 			String FN  = input("Enter first name: ");
 			String EM = input("Enter email: ");
 			int PN = Integer.valueOf(input("Enter phone number: ")).intValue();
-			member M = LIB.Add_mem(LN, FN, EM, PN);
+			member M = LIB.addMember(LN, FN, EM, PN);
 			output("\n" + M + "\n");
 			
 		} catch (NumberFormatException e) {

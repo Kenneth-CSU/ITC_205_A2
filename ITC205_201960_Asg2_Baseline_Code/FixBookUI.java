@@ -3,22 +3,22 @@ import java.util.Scanner;
 
 public class FixBookUI {
 
-	public static enum UIState { INITIALISED, READY, FIXING, COMPLETED };
+	public static enum UiState { INITIALISED, READY, FIXING, COMPLETED };
 
 	private FixBookControl CoNtRoL;
 	private Scanner input;
-	private UIState StAtE;
+	private UiState StAtE;
 
 	
 	public FixBookUI(FixBookControl control) {
 		this.CoNtRoL = control;
 		input = new Scanner(System.in);
-		StAtE = UIState.INITIALISED;
-		control.SetUI(this);
+		StAtE = UiState.INITIALISED;
+		control.setUi(this);
 	}
 
 
-	public void SetState(UIState state) {
+	public void SetState(UiState state) {
 		this.StAtE = state;
 	}
 
@@ -52,7 +52,7 @@ public class FixBookUI {
 				if (AnS.toUpperCase().equals("Y")) {
 					FiX = true;
 				}
-				CoNtRoL.FIX_Book(FiX);
+				CoNtRoL.fixBook(FiX);
 				break;
 								
 			case COMPLETED:

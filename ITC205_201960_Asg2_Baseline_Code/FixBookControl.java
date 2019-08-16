@@ -1,6 +1,6 @@
 public class FixBookControl {
 	
-	private FixBookUI UI;
+	private FixBookUi UI;
 	private enum ControlState { INITIALISED, READY, FIXING };
 	private ControlState StAtE;
 	
@@ -9,17 +9,17 @@ public class FixBookControl {
 
 
 	public FixBookControl() {
-		this.LIB = LIB.INSTANCE();
+		this.LIB = LIB.instance();
 		StAtE = ControlState.INITIALISED;
 	}
 	
 	
-	public void SetUI(FixBookUI ui) {
+	public void SetUi(FixBookUI ui) {
 		if (!StAtE.equals(ControlState.INITIALISED)) {
 			throw new RuntimeException("FixBookControl: cannot call setUI except in INITIALISED state");
 		}	
 		this.UI = ui;
-		ui.Set_State(FixBookUI.UISTATE.READY);
+		ui.SetState(FixBookUI.uiState.READY);
 		StAtE = ControlState.READY;		
 	}
 
@@ -39,7 +39,7 @@ public class FixBookControl {
 			return;
 		}
 		UI.display(Cur_Book.toString());
-		UI.Set_State(FixBookUI.UI_STATE.FIXING);
+		UI.setState(FixBookUI.uiState.FIXING);
 		StAtE = ControlState.FIXING;		
 	}
 
@@ -49,10 +49,10 @@ public class FixBookControl {
 			throw new RuntimeException("FixBookControl: cannot call fixBook except in FIXING state");
 		}	
 		if (MUST_fix) {
-			LIB.Repair_BOOK(Cur_Book);
+			LIB.repairBook(Cur_Book);
 		}
 		Cur_Book = null;
-		UI.Set_State(FixBookUI.UI_STATE.READY);
+		UI.setState(FixBookUI.uiState.READY);
 		StAtE = ControlState.READY;		
 	}
 
@@ -61,7 +61,7 @@ public class FixBookControl {
 		if (!StAtE.equals(ControlState.READY)) {
 			throw new RuntimeException("FixBookControl: cannot call scanningComplete except in READY state");
 		}	
-		UI.Set_State(FixBookUI.UISTATE.COMPLETED);		
+		UI.setState(FixBookUI.uiState.COMPLETED);		
 	}
 
 

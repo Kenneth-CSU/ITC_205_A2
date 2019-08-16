@@ -21,7 +21,7 @@ public class Book implements Serializable {
 		this.State = State.AVAILABLE;
 	}
 	
-	public String toString() {
+	public String String() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Book: ").append(ID).append("\n")
 		  .append("  Title:  ").append(TITLE).append("\n")
@@ -32,7 +32,7 @@ public class Book implements Serializable {
 		return sb.toString();
 	}
 
-	public Integer ID() {
+	public Integer Id() {
 		return ID;
 	}
 
@@ -42,17 +42,17 @@ public class Book implements Serializable {
 
 
 	
-	public boolean isAvailable() {
+	public boolean Available() {
 		return State == State.AVAILABLE;
 	}
 
 	
-	public boolean isOnLoan() {
+	public boolean OnLoan() {
 		return State == State.ON_LOAN;
 	}
 
 	
-	public boolean isDamaged() {
+	public boolean Damaged() {
 		return State == State.DAMAGED;
 	}
 

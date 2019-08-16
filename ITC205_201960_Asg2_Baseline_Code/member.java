@@ -28,7 +28,7 @@ public class Member implements Serializable {
 	}
 
 	
-	public String toString() {
+	public String String() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Member:  ").append(ID).append("\n")
 		  .append("  Name:  ").append(LN).append(", ").append(FN).append("\n")
@@ -66,8 +66,8 @@ public class Member implements Serializable {
 
 	
 	public void TakeOutLoan(loan loan) {
-		if (!LNS.containsKey(loan.ID())) {
-			LNS.put(loan.ID(), loan);
+		if (!LNS.containsKey(loan.Id())) {
+			LNS.put(loan.Id(), loan);
 		}
 		else {
 			throw new RuntimeException("Duplicate loan added to member");
@@ -106,8 +106,8 @@ public class Member implements Serializable {
 
 
 	public void DischargeLoan(loan LoAn) {
-		if (LNS.containsKey(LoAn.ID())) {
-			LNS.remove(LoAn.ID());
+		if (LNS.containsKey(LoAn.Id())) {
+			LNS.remove(LoAn.Id());
 		}
 		else {
 			throw new RuntimeException("No such loan held by member");
