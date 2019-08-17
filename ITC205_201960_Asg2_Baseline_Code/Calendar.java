@@ -2,16 +2,14 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Calendar {
-	
 	private static Calendar thisCalendar;
 	private static java.util.Calendar calendar;
-	
-	
+		
 	private Calendar() {
 		calendar = java.util.Calendar.getInstance();
 	}
 	
-	public static Calendar INSTANCE() {
+	public static Calendar instance() {
 		if (thisCalendar == null) {
 			thisCalendar = new Calendar();
 		}
@@ -22,7 +20,7 @@ public class Calendar {
 		calendar.add(java.util.Calendar.DATE, days);		
 	}
 	
-	public synchronized void Set_dATE(Date date) {
+	public synchronized void setDate(Date date) {
 		try {
 			calendar.setTime(date);
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
@@ -34,7 +32,8 @@ public class Calendar {
 			throw new RuntimeException(e);
 		}	
 	}
-	public synchronized Date Date() {
+
+	public synchronized Date date() {
 		try {
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
 	        calendar.set(java.util.Calendar.MINUTE, 0);  
@@ -47,17 +46,18 @@ public class Calendar {
 		}	
 	}
 
-	public synchronized Date Due_Date(int loanPeriod) {
-		Date currentDate = Date();
+	public synchronized Date dueDate(int loanPeriod) {
+		Date currentDate = date();
 		calendar.add(java.util.Calendar.DATE, loanPeriod);
 		Date dueDate = calendar.getTime();
 		calendar.setTime(currentDate);
 		return dueDate;
+
 	}
 	
-	public synchronized long Get_Days_Difference(Date targetDate) {
+	public synchronized long getDaysDifference(Date targetDate) {
 		
-		long differenceInMilli = Date().getTime() - targetDate.getTime();
+		long differenceInMilli = date().getTime() - targetDate.getTime();
 	    long differenceInDays = TimeUnit.DAYS.convert(differenceInMilli, TimeUnit.MILLISECONDS);
 	    return differenceInDays;
 	}

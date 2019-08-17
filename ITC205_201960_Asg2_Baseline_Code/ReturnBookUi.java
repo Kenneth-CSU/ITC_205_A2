@@ -1,42 +1,34 @@
 import java.util.Scanner;
 
-
-public class ReturnBookUI {
-
-	public static enum UI_STATE { INITIALISED, READY, INSPECTING, COMPLETED };
-
+public class ReturnBookUi {
+	public static enum UiState { INITIALISED, READY, INSPECTING, COMPLETED };
 	private ReturnBookControl returnBookControl;
 	private Scanner inputScanner;
-	private UI_STATE returnBookUiState;
+	private UiState returnBookUiState;
 
-	
-	public ReturnBookUI(ReturnBookControl newReturnBookControl) {
+	public ReturnBookUi(ReturnBookControl newReturnBookControl) {
 		this.returnBookControl = newReturnBookControl;
 		inputScanner = new Scanner(System.in);
-		returnBookUiState = UI_STATE.INITIALISED;
-		newReturnBookControl.Set_UI(this);
+		returnBookUiState = UiState.INITIALISED;
+		newReturnBookControl.setUi(this);
 	}
 
-
-	public void RuN() {		
+	public void run() {		
 		output("Return Book Use Case UI\n");
-		
 		while (true) {
-			
 			switch (returnBookUiState) {
-			
 			case INITIALISED:
 				break;
 				
 			case READY:
 				String bookScanString = input("Scan Book (<enter> completes): ");
 				if (bookScanString.length() == 0) {
-					returnBookControl.Scanning_Complete();
+					returnBookControl.scanningComplete();
 				}
 				else {
 					try {
 						int newBookId = Integer.valueOf(bookScanString).intValue();
-						returnBookControl.Book_scanned(newBookId);
+						returnBookControl.bookScanned(newBookId);
 					}
 					catch (NumberFormatException e) {
 						output("Invalid bookId");
@@ -50,38 +42,32 @@ public class ReturnBookUI {
 				if (userResponse.toUpperCase().equals("Y")) {					
 					isDamaged = true;
 				}
-				returnBookControl.Discharge_loan(isDamaged);
-			
+				returnBookControl.dischargeLoan(isDamaged);
 			case COMPLETED:
 				output("Return processing complete");
 				return;
-			
 			default:
 				output("Unhandled state");
 				throw new RuntimeException("ReturnBookUI : unhandled state :" + returnBookUiState);			
 			}
 		}
 	}
-
 	
 	private String input(String prompt) {
 		System.out.print(prompt);
 		return inputScanner.nextLine();
 	}	
 		
-		
 	private void output(Object object) {
 		System.out.println(object);
 	}
-	
 			
 	public void display(Object object) {
 		output(object);
 	}
 	
-	public void Set_State(UI_STATE state) {
+	public void setState(UiState state) {
 		this.returnBookUiState = state;
-	}
 
-	
+	}
 }
