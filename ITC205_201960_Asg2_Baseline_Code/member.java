@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("serial")
-public class member implements Serializable {
+public class Member implements Serializable {
 
 	private String lastName;
 	private String firstName;
@@ -13,21 +13,17 @@ public class member implements Serializable {
 	private int phoneNo;
 	private int memberId;
 	private double fines;
-	
 	private Map<Integer, loan> memberLoans;
 
-	
 	public member(String lastName, String firstName, String email, int phoneNo, int memberId) {
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
 		this.phoneNo = phoneNo;
 		this.memberId = memberId;
-		
 		this.memberLoans = new HashMap<>();
 	}
 
-	
 	public String toString() {
 		StringBuilder memberRecord = new StringBuilder();
 		memberRecord.append("Member:  ").append(memberId).append("\n")
@@ -37,59 +33,50 @@ public class member implements Serializable {
 		  .append("\n")
 		  .append(String.format("  Fines Owed :  $%.2f", fines))
 		  .append("\n");
-		
-		for (loan newLoan : memberLoans.values()) {
+		for (Loan newLoan : memberLoans.values()) {
 			memberRecord.append(newLoan).append("\n");
 		}		  
 		return memberRecord.toString();
 	}
 
-	
-	public int GeT_ID() {
+	public int getMemberId() {
 		return memberId;
 	}
 
-	
-	public List<loan> GeT_LoAnS() {
-		return new ArrayList<loan>(memberLoans.values());
+	public List<Loan> getLoans() {
+		return new ArrayList<Loan>(memberLoans.values());
 	}
-
 	
-	public int Number_Of_Current_Loans() {
+	public int numberOfCurrentLoans() {
 		return memberLoans.size();
 	}
-
 	
-	public double Fines_OwEd() {
+	public double finesOwed() {
 		return fines;
 	}
-
 	
-	public void Take_Out_Loan(loan newLoan) {
-		if (!memberLoans.containsKey(newLoan.ID())) {
-			memberLoans.put(newLoan.ID(), newLoan);
+	public void takeOutLoan(Loan newLoan) {
+		if (!memberLoans.containsKey(newLoan.Id())) {
+			memberLoans.put(newLoan.Id(), newLoan);
 		}
 		else {
 			throw new RuntimeException("Duplicate loan added to member");
 		}		
 	}
 
-	
-	public String Get_LastName() {
+	public String getLastName() {
 		return lastName;
 	}
-
 	
-	public String Get_FirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-
-	public void Add_Fine(double fine) {
+	public void addFine(double fine) {
 		fines += fine;
 	}
 	
-	public double Pay_Fine(double finePayment) {
+	public double payFine(double finePayment) {
 		if (finePayment < 0) {
 			throw new RuntimeException("Member.payFine: amount must be positive");
 		}
@@ -104,14 +91,12 @@ public class member implements Serializable {
 		return change;
 	}
 
-
-	public void dIsChArGeLoAn(loan returnLoan) {
-		if (memberLoans.containsKey(returnLoan.ID())) {
-			memberLoans.remove(returnLoan.ID());
+	public void dischargeLoan(Loan returnLoan) {
+		if (memberLoans.containsKey(returnLoan.Id())) {
+			memberLoans.remove(returnLoan.Id());
 		}
 		else {
 			throw new RuntimeException("No such loan held by member");
 		}		
 	}
-
 }

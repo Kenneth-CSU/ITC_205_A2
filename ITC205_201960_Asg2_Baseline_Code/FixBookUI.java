@@ -2,38 +2,30 @@ import java.util.Scanner;
 
 
 public class FixBookUI {
-
-	public static enum UI_STATE { INITIALISED, READY, FIXING, COMPLETED };
-
+	public static enum UiState { INITIALISED, READY, FIXING, COMPLETED };
 	private FixBookControl fixBookControl;
 	private Scanner scannerInput;
-	private UI_STATE uiState;
-
+	private UiState uiState;
 	
-	public FixBookUI(FixBookControl control) {
+	public fixBookUI(FixBookControl control) {
 		this.fixBookControl = control;
 		scannerInput = new Scanner(System.in);
-		uiState = UI_STATE.INITIALISED;
-		control.Set_Ui(this);
+		uiState = UiState.INITIALISED;
+		control.setUi(this);
 	}
 
-
-	public void Set_State(UI_STATE state) {
+	public void setState(UiState state) {
 		this.uiState = state;
 	}
-
 	
-	public void RuN() {
+	public void Run() {
 		output("Fix Book Use Case UI\n");
-		
 		while (true) {
-			
 			switch (uiState) {
-			
 			case READY:
 				String bookScanString = input("Scan Book (<enter> completes): ");
 				if (bookScanString.length() == 0) {
-					fixBookControl.SCannING_COMplete();
+					fixBookControl.scanningComplete();
 				}
 				else {
 					try {
@@ -52,7 +44,7 @@ public class FixBookUI {
 				if (fixBookAnswer.toUpperCase().equals("Y")) {
 					fixBookFlag = true;
 				}
-				fixBookControl.FIX_Book(fixBookFlag);
+				fixBookControl.fixBook(fixBookFlag);
 				break;
 								
 			case COMPLETED:
@@ -62,27 +54,20 @@ public class FixBookUI {
 			default:
 				output("Unhandled state");
 				throw new RuntimeException("FixBookUI : unhandled state :" + uiState);			
-			
 			}		
 		}
-		
 	}
-
 	
-	private String input(String prompt) {
+	private String Input(String prompt) {
 		System.out.print(prompt);
 		return scannerInput.nextLine();
 	}	
 		
-		
-	private void output(Object object) {
+	private void Output(Object object) {
 		System.out.println(object);
 	}
-	
 
-	public void display(Object object) {
+	public void Display(Object object) {
 		output(object);
 	}
-	
-	
 }

@@ -1,37 +1,29 @@
 import java.util.Scanner;
 
-
-public class ReturnBookUI {
-
-	public static enum UI_STATE { INITIALISED, READY, INSPECTING, COMPLETED };
-
+public class ReturnBookUi {
+	public static enum UiState { INITIALISED, READY, INSPECTING, COMPLETED };
 	private ReturnBookControl returnBookControl;
 	private Scanner inputScanner;
-	private UI_STATE returnBookUiState;
+	private UiState returnBookUiState;
 
-	
 	public ReturnBookUI(ReturnBookControl newReturnBookControl) {
 		this.returnBookControl = newReturnBookControl;
 		inputScanner = new Scanner(System.in);
-		returnBookUiState = UI_STATE.INITIALISED;
+		returnBookUiState = UiState.INITIALISED;
 		newReturnBookControl.Set_UI(this);
 	}
 
-
-	public void RuN() {		
+	public void Run() {		
 		output("Return Book Use Case UI\n");
-		
 		while (true) {
-			
 			switch (returnBookUiState) {
-			
 			case INITIALISED:
 				break;
 				
 			case READY:
 				String bookScanString = input("Scan Book (<enter> completes): ");
 				if (bookScanString.length() == 0) {
-					returnBookControl.Scanning_Complete();
+					returnBookControl.scanningComplete();
 				}
 				else {
 					try {
@@ -51,37 +43,31 @@ public class ReturnBookUI {
 					isDamaged = true;
 				}
 				returnBookControl.Discharge_loan(isDamaged);
-			
 			case COMPLETED:
 				output("Return processing complete");
 				return;
-			
 			default:
 				output("Unhandled state");
 				throw new RuntimeException("ReturnBookUI : unhandled state :" + returnBookUiState);			
 			}
 		}
 	}
-
 	
-	private String input(String prompt) {
+	private String Input(String prompt) {
 		System.out.print(prompt);
 		return inputScanner.nextLine();
 	}	
 		
-		
-	private void output(Object object) {
+	private void Output(Object object) {
 		System.out.println(object);
 	}
-	
 			
-	public void display(Object object) {
+	public void Display(Object object) {
 		output(object);
 	}
 	
-	public void Set_State(UI_STATE state) {
+	public void setState(UiState state) {
 		this.returnBookUiState = state;
-	}
 
-	
+	}
 }

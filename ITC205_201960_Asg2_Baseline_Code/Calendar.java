@@ -2,11 +2,9 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Calendar {
-	
 	private static Calendar thisCalendar;
 	private static java.util.Calendar calendar;
-	
-	
+		
 	private Calendar() {
 		calendar = java.util.Calendar.getInstance();
 	}
@@ -22,7 +20,7 @@ public class Calendar {
 		calendar.add(java.util.Calendar.DATE, days);		
 	}
 	
-	public synchronized void Set_dATE(Date date) {
+	public synchronized void SetDate(Date date) {
 		try {
 			calendar.setTime(date);
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
@@ -34,6 +32,7 @@ public class Calendar {
 			throw new RuntimeException(e);
 		}	
 	}
+
 	public synchronized Date Date() {
 		try {
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
@@ -47,15 +46,16 @@ public class Calendar {
 		}	
 	}
 
-	public synchronized Date Due_Date(int loanPeriod) {
+	public synchronized Date dueDate(int loanPeriod) {
 		Date currentDate = Date();
 		calendar.add(java.util.Calendar.DATE, loanPeriod);
 		Date dueDate = calendar.getTime();
 		calendar.setTime(currentDate);
 		return dueDate;
+
 	}
 	
-	public synchronized long Get_Days_Difference(Date targetDate) {
+	public synchronized long GetDaysDifference(Date targetDate) {
 		
 		long differenceInMilli = Date().getTime() - targetDate.getTime();
 	    long differenceInDays = TimeUnit.DAYS.convert(differenceInMilli, TimeUnit.MILLISECONDS);
