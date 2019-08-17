@@ -7,19 +7,19 @@ public class BorrowBookUi {
 	private Scanner inputScanner;
 	private UiState uiState;
 	
-	public BorrowBookUI(BorrowBookControl control) {
+	public BorrowBookUi(BorrowBookControl control) {
 		this.borrowBookControl = control;
 		inputScanner = new Scanner(System.in);
 		uiState = UiState.INITIALISED;
 		control.setUI(this);
 	}
 	
-	private String Input(String prompt) {
+	private String input(String prompt) {
 		System.out.print(prompt);
 		return inputScanner.nextLine();
 	}	
 			
-	private void Output(Object object) {
+	private void output(Object object) {
 		System.out.println(object);
 	}
 			
@@ -27,7 +27,7 @@ public class BorrowBookUi {
 		this.uiState = uiState;
 	}
 
-	public void Run() {
+	public void run() {
 		output("Borrow Book Use Case UI\n");
 		while (true) {
 			switch (uiState) {			
@@ -93,7 +93,7 @@ public class BorrowBookUi {
 		}		
 	}
 
-	public void Display(Object object) {
+	public void display(Object object) {
 		output(object);		
 	}
 

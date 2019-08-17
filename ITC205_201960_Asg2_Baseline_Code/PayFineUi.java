@@ -17,7 +17,7 @@ public class PayFineUi {
 		this.uiState = state;
 	}
 
-	public void Run() {
+	public void run() {
 		output("Pay Fine Use Case UI\n");
 		while (true) {
 			switch (uiState) {
@@ -68,16 +68,16 @@ public class PayFineUi {
 		}		
 	}
 	
-	private String Input(String prompt) {
+	private String input(String prompt) {
 		System.out.print(prompt);
 		return inputScanner.nextLine();
 	}	
 		
-	private void Output(Object object) {
+	private void output(Object object) {
 		System.out.println(object);
 	}	
 
-	public void Display(Object object) {
+	public void display(Object object) {
 		output(object);
 	}
 }

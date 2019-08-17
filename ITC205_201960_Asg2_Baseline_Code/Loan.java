@@ -12,7 +12,7 @@ public class Loan implements Serializable {
 	private Date dueDate;
 	private LoanState loanState;
 	
-	public loan(int loanId, Book book, Member member, Date dueDate) {
+	public Loan(int loanId, Book book, Member member, Date dueDate) {
 		this.loanId = loanId;
 		this.book = book;
 		this.member = member;
@@ -22,16 +22,16 @@ public class Loan implements Serializable {
 	
 	public void checkOverDue() {
 		if (loanState == LoanState.CURRENT &&
-			Calendar.instance().Date().after(dueDate)) {
-			this.loanState = LoanState.OVER_DUE;			
+			Calendar.instance().date().after(dueDate)) {
+			this.loanState = LoanState.OVERDUE;			
 		}
 	}
 	
-	public boolean overdue() {
+	public boolean isOverdue() {
 		return loanState == LoanState.OVERDUE;
 	}
 	
-	public Int loanId() {
+	public int loanId() {
 		return loanId;
 	}
 
@@ -43,20 +43,20 @@ public class Loan implements Serializable {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		StringBuilder menuEntries = new StringBuilder();
 		menuEntries.append("Loan:  ").append(loanId).append("\n")
-		  .append("  Borrower ").append(member.GeT_ID()).append(" : ")
+		  .append("  Borrower ").append(member.getMemberId()).append(" : ")
 		  .append(member.getLastName()).append(", ").append(member.getFirstName()).append("\n")
-		  .append("  Book ").append(book.Id()).append(" : " )
+		  .append("  Book ").append(book.id()).append(" : " )
 		  .append(book.title()).append("\n")
 		  .append("  DueDate: ").append(simpleDateFormat.format(dueDate)).append("\n")
 		  .append("  State: ").append(loanState);		
 		return menuEntries.toString();
 	}
 
-	public member Member() {
+	public Member member() {
 		return member;
 	}
 
-	public book Book() {
+	public Book book() {
 		return book;
 	}
 

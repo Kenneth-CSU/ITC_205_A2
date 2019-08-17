@@ -9,16 +9,16 @@ public class Book implements Serializable {
 	private String callNumber;
 	private int idNumber;
 	
-	private enum State { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
-	private STATE bookState;
+	private enum BookState { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
+	private BookState bookState;
 	
 	
-	public book(String author, String title, String callNumber, int idNumber) {
+	public Book(String author, String title, String callNumber, int idNumber) {
 		this.author = author;
 		this.title = title;
 		this.callNumber = callNumber;
 		this.idNumber = idNumber;
-		this.bookState = STATE.AVAILABLE;
+		this.bookState = BookState.AVAILABLE;
 	}
 		public String toString() {
 		StringBuilder newString = new StringBuilder();
@@ -31,47 +31,45 @@ public class Book implements Serializable {
 		return newString.toString();
 	}
 
-	public Integer Id() {
+	public Integer id() {
 		return idNumber;
 	}
 
-	public String Title() {
+	public String title() {
 		return title;
 
 	}
 	
-	public boolean Available() {
-		return bookState == STATE.AVAILABLE;
+	public boolean isAvailable() {
+		return bookState == BookState.AVAILABLE;
 	}
 	
-	public boolean OnLoan() {
-		return bookState == STATE.ON_LOAN;
+	public boolean onLoan() {
+		return bookState == BookState.ON_LOAN;
 	}
 	
-	public boolean Damaged() {
-		return bookState == STATE.DAMAGED;
+	public boolean isDamaged() {
+		return bookState == BookState.DAMAGED;
 
 	}
 	
-	public void Borrow() {
-		if (bookState.equals(State.AVAILABLE)) {
-			bookState = State.ON_LOAN;
-
+	public void borrow() {
+		if (bookState.equals(BookState.AVAILABLE)) {
+			bookState = BookState.ON_LOAN;
 		}
 		else {
 			throw new RuntimeException(String.format("Book: cannot borrow while book is in state: %s", bookState));
 		}
-		
 	}
 
 
-	public void Return(boolean DAMAGED) {
-		if (bookState.equals(State.ON_LOAN)) {
-			if (DAMAGED) {
-				bookState = State.DAMAGED;
+	public void returnBook(boolean damaged) {
+		if (bookState.equals(BookState.ON_LOAN)) {
+			if (damaged) {
+				bookState = BookState.DAMAGED;
 			}
 			else {
-				bookState = State.AVAILABLE;
+				bookState = BookState.AVAILABLE;
 
 			}
 		}
@@ -81,9 +79,9 @@ public class Book implements Serializable {
 	}
 
 	
-	public void Repair() {
-		if (bookState.equals(State.DAMAGED)) {
-			bookState = State.AVAILABLE;
+	public void repair() {
+		if (bookState.equals(BookState.DAMAGED)) {
+			bookState = BookState.AVAILABLE;
 
 		}
 		else {

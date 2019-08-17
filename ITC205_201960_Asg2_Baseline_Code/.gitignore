@@ -22,3 +22,6 @@
 /loan$LOAN_STATE.class
 /loan.class
 /member.class
+/Book$BookState.class
+/FixBookUi$UiState.class
+/FixBookUi.class

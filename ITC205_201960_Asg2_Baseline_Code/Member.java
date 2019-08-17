@@ -13,9 +13,9 @@ public class Member implements Serializable {
 	private int phoneNo;
 	private int memberId;
 	private double fines;
-	private Map<Integer, loan> memberLoans;
+	private Map<Integer, Loan> memberLoans;
 
-	public member(String lastName, String firstName, String email, int phoneNo, int memberId) {
+	public Member(String lastName, String firstName, String email, int phoneNo, int memberId) {
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
@@ -39,7 +39,7 @@ public class Member implements Serializable {
 		return memberRecord.toString();
 	}
 
-	public int getMemberId() {
+	public  int getMemberId() {
 		return memberId;
 	}
 
@@ -56,8 +56,8 @@ public class Member implements Serializable {
 	}
 	
 	public void takeOutLoan(Loan newLoan) {
-		if (!memberLoans.containsKey(newLoan.Id())) {
-			memberLoans.put(newLoan.Id(), newLoan);
+		if (!memberLoans.containsKey(newLoan.loanId())) {
+			memberLoans.put(newLoan.loanId(), newLoan);
 		}
 		else {
 			throw new RuntimeException("Duplicate loan added to member");
@@ -92,8 +92,8 @@ public class Member implements Serializable {
 	}
 
 	public void dischargeLoan(Loan returnLoan) {
-		if (memberLoans.containsKey(returnLoan.Id())) {
-			memberLoans.remove(returnLoan.Id());
+		if (memberLoans.containsKey(returnLoan.loanId())) {
+			memberLoans.remove(returnLoan.loanId());
 		}
 		else {
 			throw new RuntimeException("No such loan held by member");

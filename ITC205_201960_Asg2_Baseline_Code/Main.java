@@ -37,7 +37,7 @@ public class Main {
 			library = Library.instance();
 			calendar = Calendar.instance();
 			simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			for (Member member : library.instance()) {
+			for (Member member : library.members()) {
 				output(member);
 			}
 			output(" ");
@@ -51,43 +51,43 @@ public class Main {
 				String menuInput = input(menuEntries);
 				switch (menuInput.toUpperCase()) {
 				case "M": 
-					AddMember();
+					addMember();
 					break;
 					
 				case "LM": 
-					Members();
+					members();
 					break;
 					
 				case "B": 
-					AddBook();
+					addBook();
 					break;
 					
 				case "LB": 
-					Books();
+					books();
 					break;
 					
 				case "FB": 
-					FixBooks();
+					fixBooks();
 					break;
 					
 				case "L": 
-					BorrowBook();
+					borrowBook();
 					break;
 					
 				case "R": 
-					ReturnBook();
+					returnBook();
 					break;
 					
 				case "LL": 
-					CurrentLoans();
+					currentLoans();
 					break;
 					
 				case "P": 
-					Fines();
+					fines();
 					break;
 					
 				case "T": 
-					IncrementDate();
+					incrementDate();
 					break;
 					
 				case "Q": 
@@ -95,7 +95,7 @@ public class Main {
 					break;
 					
 				default: 
-					Output("\nInvalid option\n");
+					output("\nInvalid option\n");
 					break;
 				}
 				Library.save();
@@ -106,8 +106,8 @@ public class Main {
 		output("\nEnded\n");
 	}	
 	
-	private static void Fines() {
-		new PayFineUI(new PayFineControl()).Run();		
+	private static void fines() {
+		new PayFineUi(new PayFineControl()).run();		
 	}
 
 	private static void currentLoans() {
@@ -117,30 +117,30 @@ public class Main {
 		}		
 	}
 
-	private static void Books() {
+	private static void books() {
 		output("");
 		for (Book book : library.books()) {
 			output(book + "\n");
 		}		
 	}
 
-	private static void instance() {
+	private static void members() {
 		output("");
-		for (Member member : library.instance()) {
+		for (Member member : library.members()) {
 			output(member + "\n");
 		}		
 	}
 
 	private static void borrowBook() {
-		new BorrowBookUI(new BorrowBookControl()).run();		
+		new BorrowBookUi(new BorrowBookControl()).run();		
 	}
 
 	private static void returnBook() {
-		new ReturnBookUI(new ReturnBookControl()).run();		
+		new ReturnBookUi(new ReturnBookControl()).run();		
 	}
 
 	private static void fixBooks() {
-		new FixBookUI(new FixBookControl()).run();		
+		new FixBookUi(new FixBookControl()).run();		
 	}
 
 	private static void incrementDate() {
@@ -162,7 +162,6 @@ public class Main {
 		output("\n" + book + "\n");
 	
 	}
-
 	
 	private static void addMember() {
 		try {

@@ -6,14 +6,14 @@ public class ReturnBookUi {
 	private Scanner inputScanner;
 	private UiState returnBookUiState;
 
-	public ReturnBookUI(ReturnBookControl newReturnBookControl) {
+	public ReturnBookUi(ReturnBookControl newReturnBookControl) {
 		this.returnBookControl = newReturnBookControl;
 		inputScanner = new Scanner(System.in);
 		returnBookUiState = UiState.INITIALISED;
-		newReturnBookControl.Set_UI(this);
+		newReturnBookControl.setUi(this);
 	}
 
-	public void Run() {		
+	public void run() {		
 		output("Return Book Use Case UI\n");
 		while (true) {
 			switch (returnBookUiState) {
@@ -28,7 +28,7 @@ public class ReturnBookUi {
 				else {
 					try {
 						int newBookId = Integer.valueOf(bookScanString).intValue();
-						returnBookControl.Book_scanned(newBookId);
+						returnBookControl.bookScanned(newBookId);
 					}
 					catch (NumberFormatException e) {
 						output("Invalid bookId");
@@ -42,7 +42,7 @@ public class ReturnBookUi {
 				if (userResponse.toUpperCase().equals("Y")) {					
 					isDamaged = true;
 				}
-				returnBookControl.Discharge_loan(isDamaged);
+				returnBookControl.dischargeLoan(isDamaged);
 			case COMPLETED:
 				output("Return processing complete");
 				return;
@@ -53,16 +53,16 @@ public class ReturnBookUi {
 		}
 	}
 	
-	private String Input(String prompt) {
+	private String input(String prompt) {
 		System.out.print(prompt);
 		return inputScanner.nextLine();
 	}	
 		
-	private void Output(Object object) {
+	private void output(Object object) {
 		System.out.println(object);
 	}
 			
-	public void Display(Object object) {
+	public void display(Object object) {
 		output(object);
 	}
 	

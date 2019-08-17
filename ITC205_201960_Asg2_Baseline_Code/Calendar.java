@@ -9,7 +9,7 @@ public class Calendar {
 		calendar = java.util.Calendar.getInstance();
 	}
 	
-	public static Calendar INSTANCE() {
+	public static Calendar instance() {
 		if (thisCalendar == null) {
 			thisCalendar = new Calendar();
 		}
@@ -20,7 +20,7 @@ public class Calendar {
 		calendar.add(java.util.Calendar.DATE, days);		
 	}
 	
-	public synchronized void SetDate(Date date) {
+	public synchronized void setDate(Date date) {
 		try {
 			calendar.setTime(date);
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
@@ -33,7 +33,7 @@ public class Calendar {
 		}	
 	}
 
-	public synchronized Date Date() {
+	public synchronized Date date() {
 		try {
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
 	        calendar.set(java.util.Calendar.MINUTE, 0);  
@@ -47,7 +47,7 @@ public class Calendar {
 	}
 
 	public synchronized Date dueDate(int loanPeriod) {
-		Date currentDate = Date();
+		Date currentDate = date();
 		calendar.add(java.util.Calendar.DATE, loanPeriod);
 		Date dueDate = calendar.getTime();
 		calendar.setTime(currentDate);
@@ -55,9 +55,9 @@ public class Calendar {
 
 	}
 	
-	public synchronized long GetDaysDifference(Date targetDate) {
+	public synchronized long getDaysDifference(Date targetDate) {
 		
-		long differenceInMilli = Date().getTime() - targetDate.getTime();
+		long differenceInMilli = date().getTime() - targetDate.getTime();
 	    long differenceInDays = TimeUnit.DAYS.convert(differenceInMilli, TimeUnit.MILLISECONDS);
 	    return differenceInDays;
 	}

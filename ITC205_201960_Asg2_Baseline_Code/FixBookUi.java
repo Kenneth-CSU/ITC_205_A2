@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
 
-public class FixBookUI {
+public class FixBookUi {
 	public static enum UiState { INITIALISED, READY, FIXING, COMPLETED };
 	private FixBookControl fixBookControl;
 	private Scanner scannerInput;
 	private UiState uiState;
 	
-	public fixBookUI(FixBookControl control) {
+	public FixBookUi(FixBookControl control) {
 		this.fixBookControl = control;
 		scannerInput = new Scanner(System.in);
 		uiState = UiState.INITIALISED;
@@ -18,7 +18,7 @@ public class FixBookUI {
 		this.uiState = state;
 	}
 	
-	public void Run() {
+	public void run() {
 		output("Fix Book Use Case UI\n");
 		while (true) {
 			switch (uiState) {
@@ -30,7 +30,7 @@ public class FixBookUI {
 				else {
 					try {
 						int bookId = Integer.valueOf(bookScanString).intValue();
-						fixBookControl.Book_scanned(bookId);
+						fixBookControl.bookScanned(bookId);
 					}
 					catch (NumberFormatException e) {
 						output("Invalid bookId");
@@ -58,16 +58,16 @@ public class FixBookUI {
 		}
 	}
 	
-	private String Input(String prompt) {
+	private String input(String prompt) {
 		System.out.print(prompt);
 		return scannerInput.nextLine();
 	}	
 		
-	private void Output(Object object) {
+	private void output(Object object) {
 		System.out.println(object);
 	}
 
-	public void Display(Object object) {
+	public void display(Object object) {
 		output(object);
 	}
 }

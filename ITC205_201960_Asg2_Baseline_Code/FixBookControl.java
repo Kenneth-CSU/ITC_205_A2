@@ -1,22 +1,22 @@
 public class FixBookControl {
 	
-	private FixBookUI fixBookUi;
+	private FixBookUi fixBookUi;
 	private enum ControlState { INITIALISED, READY, FIXING };
 	private ControlState controlState;
 	private Library currentLibrary;
 	private Book currentBook;
 
 	public FixBookControl() {
-		this.currentLibrary = currentLibrary.instance();
+		this.currentLibrary = Library.instance();
 		controlState = ControlState.INITIALISED;
 	}
-		
-	public void setUi(FixBookUI userInterface) {
+	
+	public void setUi(FixBookUi fixBookUi) {
 		if (!controlState.equals(ControlState.INITIALISED)) {
 			throw new RuntimeException("FixBookControl: cannot call setUI except in INITIALISED state");
 		}	
-		this.fixBookUi = userInterface;
-		userInterface.setState(FixBookUI.uiState.READY);
+		this.fixBookUi = fixBookUi;
+		fixBookUi.setState(FixBookUi.UiState.READY);
 		controlState = ControlState.READY;		
 	}
 
@@ -25,7 +25,7 @@ public class FixBookControl {
 
 			throw new RuntimeException("FixBookControl: cannot call bookScanned except in READY state");
 		}	
-		currentBook = currentLibrary.Book(bookId);
+		currentBook = currentLibrary.book(bookId);
 		
 		if (currentBook == null) {
 			fixBookUi.display("Invalid bookId");
@@ -36,7 +36,7 @@ public class FixBookControl {
 			return;
 		}
 		fixBookUi.display(currentBook.toString());
-		fixBookUi.setState(FixBookUI.uiState.FIXING);
+		fixBookUi.setState(FixBookUi.UiState.FIXING);
 		controlState = ControlState.FIXING;		
 	}
 
@@ -48,7 +48,7 @@ public class FixBookControl {
 			currentLibrary.repairBook(currentBook);
 		}
 		currentBook = null;
-		fixBookUi.setState(FixBookUI.uiState.READY);
+		fixBookUi.setState(FixBookUi.UiState.READY);
 		controlState = ControlState.READY;		
 	}
 	
@@ -56,6 +56,6 @@ public class FixBookControl {
 		if (!controlState.equals(ControlState.READY)) {
 			throw new RuntimeException("FixBookControl: cannot call scanningComplete except in READY state");
 		}	
-		fixBookUi.setState(FixBookUI.uiState.COMPLETED);		
+		fixBookUi.setState(FixBookUi.UiState.COMPLETED);		
 	}
 }
