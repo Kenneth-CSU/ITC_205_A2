@@ -47,13 +47,13 @@ public class Library implements Serializable {
 		loanId = 1;		
 	}
 	
-	public static synchronized Library instance() {		
+	public static synchronized Library getInstance() {		
 		if (self == null) {
 			Path path = Paths.get(LIBRARY_FILE);			
 			if (Files.exists(path)) {	
 				try (ObjectInputStream libraryInputFile = new ObjectInputStream(new FileInputStream(LIBRARY_FILE));) {
 					self = (Library) libraryInputFile.readObject();
-					Calendar.instance().setDate(self.loanDate);
+					Calendar.getInstance().setDate(self.loanDate);
 					libraryInputFile.close();
 				}
 				catch (Exception e) {
@@ -67,7 +67,7 @@ public class Library implements Serializable {
 
 	public static synchronized void save() {
 		if (self != null) {
-			self.loanDate = Calendar.instance().date();
+			self.loanDate = Calendar.getInstance().date();
 			try (ObjectOutputStream libraryOutputFile = new ObjectOutputStream(new FileOutputStream(LIBRARY_FILE));) {
 				libraryOutputFile.writeObject(self);
 				libraryOutputFile.flush();

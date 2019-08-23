@@ -97,5 +97,4 @@ public class BorrowBookUi {
 	public void display(Object object) {
 		output(object);		
 	}
-
 }

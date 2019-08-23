@@ -1,4 +1,4 @@
-            import java.util.Date;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Calendar {
@@ -11,9 +11,9 @@ public class Calendar {
 	
 	public static Calendar getInstance() {
 		if (thisCalendar == null) {
-			thisCalendar = new Calendar();
+                    thisCalendar = new Calendar();
 		}
-		return thisCalendar;
+                return thisCalendar;
 	}
 	
 	public void incrementDate(int days) {
@@ -22,13 +22,12 @@ public class Calendar {
 	
 	public synchronized void setDate(Date date) {
 		try {
-			calendar.setTime(date);
+		calendar.setTime(date);
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
 	        calendar.set(java.util.Calendar.MINUTE, 0);  
 	        calendar.set(java.util.Calendar.SECOND, 0);  
 	        calendar.set(java.util.Calendar.MILLISECOND, 0);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}	
 	}
