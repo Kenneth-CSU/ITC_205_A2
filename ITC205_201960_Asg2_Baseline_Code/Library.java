@@ -1,4 +1,5 @@
 
+import java.awt.print.Book;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -9,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -173,7 +175,7 @@ public class Library implements Serializable {
         int newLoanId = nextLoanId();
         Loan loan = new Loan(newLoanId, book, member, dueDate);
         member.takeOutLoan(loan);
-        book.borrow();
+        book.borrowBook();
         int issuedLoanId = loan.loanId();
         loans.put(issuedLoanId, loan);
         int borrowedBookId = book.id();
@@ -226,7 +228,7 @@ public class Library implements Serializable {
     public void repairBook(Book currentBook) {
         int repairdBookId = currentBook.id();
         if (damagedBooks.containsKey(repairdBookId)) {
-            currentBook.repair();
+            currentBook.repairBook();
             damagedBooks.remove(repairdBookId);
         } else {
             throw new RuntimeException("Library: repairBook: book is not damaged");

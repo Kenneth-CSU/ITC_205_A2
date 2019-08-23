@@ -1,3 +1,4 @@
+import java.awt.print.Book;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,9 +22,9 @@ public class Loan implements Serializable {
 	}
 	
 	public void checkOverDue() {
-        Boolean isOverdue = Calendar.getInstance().date().after(dueDate)
+    boolean isOverdue = Calendar.getInstance().date().after(dueDate)
 		if (loanState == LoanState.CURRENT && isOverdue) {
-			this.loanState = LoanState.OVERDUE;			
+		    this.loanState = LoanState.OVERDUE;			
 		}
 	}
 	

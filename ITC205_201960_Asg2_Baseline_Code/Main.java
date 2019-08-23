@@ -44,7 +44,7 @@ public class Main {
                 output(member);
             }
             output(" ");
-            for (Book book : library.books()) {
+            for (java.awt.print.Book book : library.books()) {
                 output(book);
             }
             menuEntries = getMenu();

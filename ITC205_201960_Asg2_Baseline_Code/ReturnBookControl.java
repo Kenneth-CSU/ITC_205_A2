@@ -1,3 +1,5 @@
+import java.awt.print.Book;
+
 public class ReturnBookControl {
     private ReturnBookUi returnBookUi;
     private enum ControlState { INITIALISED, READY, INSPECTING };
@@ -11,7 +13,7 @@ public class ReturnBookControl {
     }
 
     public void setUi(ReturnBookUi ui) {
-        Boolean isIntialised = bookReturnState.equals(ControlState.INITIALISED);
+        boolean isIntialised = bookReturnState.equals(ControlState.INITIALISED);
         if (!isIntialised) {
             throw new RuntimeException("ReturnBookControl: cannot call setUI except in INITIALISED state");
         }	
@@ -21,7 +23,7 @@ public class ReturnBookControl {
     }
 
     public void bookScanned(int bookId) {
-        Boolean isReady = bookReturnState.equals(ControlState.READY);
+        boolean isReady = bookReturnState.equals(ControlState.READY);
         if (!isReady) {
             throw new RuntimeException("ReturnBookControl: cannot call bookScanned except in READY state");
         }	
@@ -30,14 +32,14 @@ public class ReturnBookControl {
             returnBookUi.display("Invalid Book Id");
             return;
         }
-        Boolean inOnLoan = currentBook.onLoan();
-        if (!inOnLoan) {
+        boolean isOnLoan = currentBook.onLoan();
+        if (!isOnLoan) {
             returnBookUi.display("Book has not been borrowed");
             return;
         }		
         currentLoan = library.loanByBookId(bookId);	
         double overDueFine = 0.0;
-        Boolean isOverdue = currentLoan.isOverdue();
+        boolean isOverdue = currentLoan.isOverdue();
         if (isOverdue) {
             overDueFine = library.calculateOverdueFine(currentLoan);
         }
