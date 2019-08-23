@@ -21,8 +21,8 @@ public class Loan implements Serializable {
 	}
 	
 	public void checkOverDue() {
-		if (loanState == LoanState.CURRENT &&
-			Calendar.instance().date().after(dueDate)) {
+        Boolean isOverdue = Calendar.getInstance().date().after(dueDate)
+		if (loanState == LoanState.CURRENT && isOverdue) {
 			this.loanState = LoanState.OVERDUE;			
 		}
 	}

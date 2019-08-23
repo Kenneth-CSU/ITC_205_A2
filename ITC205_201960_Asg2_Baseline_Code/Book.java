@@ -49,7 +49,6 @@ public class Book implements Serializable {
 	
 	public boolean isDamaged() {
 		return bookState == BookState.DAMAGED;
-
 	}
 	
 

@@ -36,8 +36,8 @@ public class Main {
     public static void main(String[] args) {		
         try {			
             inputScanner = new Scanner(System.in);
-            library = Library.instance();
-            calendar = Calendar.instance();
+            library = Library.getInstance();
+            calendar = Calendar.getInstance();
             simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             List<Member> members = library.members();
             for (Member member : members) {
