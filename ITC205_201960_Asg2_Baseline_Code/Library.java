@@ -8,11 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @SuppressWarnings("serial")
 public class Library implements Serializable {
 
@@ -46,14 +47,14 @@ public class Library implements Serializable {
         loanId = 1;
     }
 
-    public static synchronized Library instance() {
+    public static synchronized Library getInstance() {
         if (self == null) {
             Path path = Paths.get(LIBRARY_FILE);
             if (Files.exists(path)) {
                 try (FileInputStream newFileInputStream = new FileInputStream(LIBRARY_FILE);
                     ObjectInputStream libraryInputFile = new ObjectInputStream(newFileInputStream);) {
                     self = (Library) libraryInputFile.readObject();
-                    Calendar.instance().setDate(self.loanDate);
+                    Calendar.getInstance().setDate(self.loanDate);
                     libraryInputFile.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -67,7 +68,7 @@ public class Library implements Serializable {
 
     public static synchronized void save() {
         if (self != null) {
-            self.loanDate = Calendar.instance().date();
+            self.loanDate = Calendar.getInstance().date();
             try (FileOutputStream newFileOutputStream = new FileOutputStream(LIBRARY_FILE);
                 ObjectOutputStream libraryOutputFile = new ObjectOutputStream(newFileOutputStream);) {
                 libraryOutputFile.writeObject(self);
@@ -168,7 +169,7 @@ public class Library implements Serializable {
     }
 
     public Loan issueLoan(Book book, Member member) {
-        Date dueDate = Calendar.instance().dueDate(LOAN_PERIOD);
+        Date dueDate = Calendar.getInstance().dueDate(LOAN_PERIOD);
         int newLoanId = nextLoanId();
         Loan loan = new Loan(newLoanId, book, member, dueDate);
         member.takeOutLoan(loan);
@@ -191,7 +192,7 @@ public class Library implements Serializable {
         Boolean isOverdue = loan.isOverdue();
         if (isOverdue) {
             Date dateNow = loan.getDueDate();
-            long daysOverDue = Calendar.instance().getDaysDifference(dateNow);
+            long daysOverDue = Calendar.getInstance().getDaysDifference(dateNow);
             double fine = daysOverDue * FINE_PER_DAY;
             return fine;
         }
