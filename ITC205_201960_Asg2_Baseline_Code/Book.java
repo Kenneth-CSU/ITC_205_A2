@@ -37,7 +37,6 @@ public class Book implements Serializable {
 
 	public String title() {
 		return title;
-
 	}
 	
 	public boolean isAvailable() {
@@ -52,7 +51,8 @@ public class Book implements Serializable {
 		return bookState == BookState.DAMAGED;
 	}
 	
-	public void borrow() {
+
+	public void borrowBook() {
 		if (bookState.equals(BookState.AVAILABLE)) {
 			bookState = BookState.ON_LOAN;
 		} else {
@@ -60,30 +60,25 @@ public class Book implements Serializable {
 		}
 	}
 
-	public void returnBook(boolean damaged) {
+	public void returnBook(boolean isDamaged) {
 		if (bookState.equals(BookState.ON_LOAN)) {
-			if (damaged) {
+			if (isDamaged) {
 				bookState = BookState.DAMAGED;
-			}
-			else {
+			} else {
 				bookState = BookState.AVAILABLE;
 			}
-		}
-		else {
+		} else {
 			throw new RuntimeException(String.format("Book: cannot Return while book is in state: %s", bookState));
-		}		
+		}	
 	}
 
 	
-	public void repair() {
+	public void repairBook() {
 		if (bookState.equals(BookState.DAMAGED)) {
 			bookState = BookState.AVAILABLE;
-
-		}
-		else {
+		} else {
 			throw new RuntimeException(String.format("Book: cannot repair while book is in state: %s", bookState));
 		}
 	}
-
 
 }
