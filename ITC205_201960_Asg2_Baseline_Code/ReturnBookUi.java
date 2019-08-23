@@ -22,11 +22,13 @@ public class ReturnBookUi {
 				
 			case READY:
 				String bookScanString = input("Scan Book (<enter> completes): ");
+
 				int bookScanLength = bookScanString.length();
 				if (bookScanLength == 0) {
 					returnBookControl.scanningComplete();
 				}else {
 				    try {
+
 						int newBookId = Integer.valueOf(bookScanString).intValue();
 						returnBookControl.bookScanned(newBookId);
 					}
