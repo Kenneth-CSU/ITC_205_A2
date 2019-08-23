@@ -22,11 +22,11 @@ public class ReturnBookUi {
 				
 			case READY:
 				String bookScanString = input("Scan Book (<enter> completes): ");
-				if (bookScanString.length() == 0) {
+				int bookScanLength = bookScanString.length();
+				if (bookScanLength == 0) {
 					returnBookControl.scanningComplete();
-				}
-				else {
-					try {
+				}else {
+				    try {
 						int newBookId = Integer.valueOf(bookScanString).intValue();
 						returnBookControl.bookScanned(newBookId);
 					}
@@ -39,13 +39,16 @@ public class ReturnBookUi {
 			case INSPECTING:
 				String userResponse = input("Is book damaged? (Y/N): ");
 				boolean isDamaged = false;
-				if (userResponse.toUpperCase().equals("Y")) {					
+				Boolean answer = userResponse.toUpperCase().equals("Y");
+				if (answer) {					
 					isDamaged = true;
 				}
 				returnBookControl.dischargeLoan(isDamaged);
+			
 			case COMPLETED:
 				output("Return processing complete");
 				return;
+			
 			default:
 				output("Unhandled state");
 				throw new RuntimeException("ReturnBookUI : unhandled state :" + returnBookUiState);			
@@ -68,6 +71,5 @@ public class ReturnBookUi {
 	
 	public void setState(UiState state) {
 		this.returnBookUiState = state;
-
 	}
 }
