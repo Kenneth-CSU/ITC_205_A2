@@ -22,9 +22,9 @@ public class Loan implements Serializable {
 	}
 	
 	public void checkOverDue() {
-		if (loanState == LoanState.CURRENT &&
-			Calendar.getInstance().date().after(dueDate)) {
-			this.loanState = LoanState.OVERDUE;			
+    boolean isOverdue = Calendar.getInstance().date().after(dueDate)
+		if (loanState == LoanState.CURRENT && isOverdue) {
+		    this.loanState = LoanState.OVERDUE;			
 		}
 	}
 	
