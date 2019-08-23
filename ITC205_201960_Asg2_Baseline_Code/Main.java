@@ -8,6 +8,7 @@ public class Main {
     private static Library library;
     private static String menuEntries;
     private static Calendar calendar;
+  //  private static Book activeBook;
     private static SimpleDateFormat simpleDateFormat;
 
     private static String getMenu() {
@@ -44,7 +45,7 @@ public class Main {
                 output(member);
             }
             output(" ");
-            for (java.awt.print.Book book : library.books()) {
+            for (Book book : library.books()) {
                 output(book);
             }
             menuEntries = getMenu();

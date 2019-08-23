@@ -1,8 +1,8 @@
-import java.awt.print.Book;
-import java.lang.reflect.Member;
+
+//import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
-//import Library //.library;
+
 
 public class BorrowBookControl {
 	private BorrowBookUi borrowBookUi;
@@ -12,7 +12,6 @@ public class BorrowBookControl {
 	private ControlState controlState;
 	private List<Book> booksPending;
 	private List<Loan> booksCompleted;
-	private Book book;
 	
 	public BorrowBookControl() {
 		this.library = Library.getInstance();
@@ -32,7 +31,7 @@ public class BorrowBookControl {
 		if (!controlState.equals(ControlState.READY)) {
 			throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
 		}
-		Member cardedMember = Library.member(memberId);
+		Member cardedMember = library.member(memberId);
 		if (cardedMember == null) {
 			borrowBookUi.display("Invalid memberId");
 			return;
@@ -48,11 +47,11 @@ public class BorrowBookControl {
 	}
 		
 	public void isScanned(int bookId) {
-		book = null;
+		//book = null;
 		if (!controlState.equals(ControlState.SCANNING)) {
 			throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
 		}	
-		book = library.book(bookId);
+		Book book = library.book(bookId);
 		if (book == null) {
 			borrowBookUi.display("Invalid bookId");
 			return;
@@ -101,7 +100,7 @@ public class BorrowBookControl {
 		controlState = ControlState.COMPLETED;
 	}
 	
-	public void Cancel() {
+	public void cancel() {
 		borrowBookUi.setState(BorrowBookUi.UiState.CANCELLED);
 		controlState = ControlState.CANCELLED;
 	}

@@ -1,7 +1,3 @@
-
-import java.awt.print.Book;
-//import Library.library;
-
 public class FixBookControl {
 	
 	private FixBookUi fixBookUi;
