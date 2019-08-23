@@ -6,7 +6,7 @@ public class PayFineControl {
     private Member member;
 
     public PayFineControl() {
-        this.library = Library.instance();
+        this.library = Library.getInstance();
         paymentControlState = ControlState.INITIALISED;
     }
 

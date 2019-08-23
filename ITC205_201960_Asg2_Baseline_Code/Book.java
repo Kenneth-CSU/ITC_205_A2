@@ -49,9 +49,7 @@ public class Book implements Serializable {
 	
 	public boolean isDamaged() {
 		return bookState == BookState.DAMAGED;
-
 	}
-	
 
 	public void borrowBook() {
 		if (bookState.equals(BookState.AVAILABLE)) {
