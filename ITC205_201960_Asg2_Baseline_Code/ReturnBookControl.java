@@ -6,7 +6,7 @@ public class ReturnBookControl {
     private Loan currentLoan;
 
     public ReturnBookControl() {
-        this.library = Library.instance();
+        this.library = Library.getInstance();
         bookReturnState = ControlState.INITIALISED;
     }
 

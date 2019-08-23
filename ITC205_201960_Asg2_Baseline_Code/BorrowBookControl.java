@@ -16,7 +16,7 @@ public class BorrowBookControl {
 	
 	
 	public BorrowBookControl() {
-		this.library = Library.instance();
+		this.library = Library.getInstance();
 		controlState = ControlState.INITIALISED;
 	}
 	
