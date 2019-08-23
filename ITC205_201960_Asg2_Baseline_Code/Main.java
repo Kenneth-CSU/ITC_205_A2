@@ -1,4 +1,6 @@
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -37,7 +39,8 @@ public class Main {
             library = Library.instance();
             calendar = Calendar.instance();
             simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            for (Member member : library.members()) {
+            List<Member> members = library.members();
+            for (Member member : members) {
                 output(member);
             }
             output(" ");
@@ -47,7 +50,9 @@ public class Main {
             menuEntries = getMenu();
             boolean loopState = false;
             while (!loopState) {
-                output("\n" + simpleDateFormat.format(calendar.date()));
+                Date date = calendar.date();
+                String dateString = simpleDateFormat.format(date);
+                output("\n" + dateString);
                 String menuInput = input(menuEntries);
                 switch (menuInput.toUpperCase()) {
                 case "M": 
@@ -107,48 +112,58 @@ public class Main {
     }	
 
     private static void fines() {
-        new PayFineUi(new PayFineControl()).run();		
+        PayFineControl payFine = new PayFineControl();
+        new PayFineUi(payFine).run();		
     }
 
     private static void currentLoans() {
         output("");
-        for (Loan loan : library.currentLoans()) {
+        List<Loan> currentLoans = library.currentLoans();
+        for (Loan loan : currentLoans) {
             output(loan + "\n");
         }		
     }
 
     private static void books() {
         output("");
-        for (Book book : library.books()) {
+        List<Book> books = library.books();
+        for (Book book : books) {
             output(book + "\n");
         }		
     }
 
     private static void members() {
         output("");
-        for (Member member : library.members()) {
+        List<Member> members = library.members();
+        for (Member member : members) {
             output(member + "\n");
         }		
     }
 
     private static void borrowBook() {
-        new BorrowBookUi(new BorrowBookControl()).run();		
+        BorrowBookControl borrowBookControl = new BorrowBookControl();
+        new BorrowBookUi(borrowBookControl).run();		
     }
 
     private static void returnBook() {
-        new ReturnBookUi(new ReturnBookControl()).run();		
+        ReturnBookControl returnBookControl = new ReturnBookControl();
+        new ReturnBookUi(returnBookControl).run();		
     }
 
     private static void fixBooks() {
-        new FixBookUi(new FixBookControl()).run();		
+        FixBookControl fixBookControl = new FixBookControl();
+        new FixBookUi(fixBookControl).run();		
     }
 
     private static void incrementDate() {
         try {
-            int days = Integer.valueOf(input("Enter number of days: ")).intValue();
+            String inputDays = input("Enter number of days: ");
+            int days = Integer.valueOf(inputDays).intValue();
             calendar.incrementDate(days);
             library.checkCurrentLoans();
-            output(simpleDateFormat.format(calendar.date()));
+            Date date = calendar.date();
+            String dateString = simpleDateFormat.format(date);
+            output(dateString);
         } catch (NumberFormatException e) {
             output("\nInvalid number of days\n");
         }
@@ -168,7 +183,8 @@ public class Main {
             String nameLast = input("Enter last name: ");
             String nameFirst  = input("Enter first name: ");
             String emailAdress = input("Enter email: ");
-            int phoneNumber = Integer.valueOf(input("Enter phone number: ")).intValue();
+            String number = input("Enter phone number: ");
+            int phoneNumber = Integer.valueOf(number).intValue();
             Member member = library.addMember(nameLast, nameFirst, emailAdress, phoneNumber);
             output("\n" + member + "\n");
         } catch (NumberFormatException e) {

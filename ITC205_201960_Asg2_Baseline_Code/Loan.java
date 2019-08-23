@@ -40,13 +40,20 @@ public class Loan implements Serializable {
 
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        int memberId = member.getMemberId();
+        int bookId = book.id();
+        String lastName = member.getLastName();
+        String firstName = member.getFirstName();
+        String title = book.title();
+        String date = simpleDateFormat.format(dueDate);
+        
         StringBuilder menuEntries = new StringBuilder();
         menuEntries.append("Loan:  ").append(loanId).append("\n")
-        .append("  Borrower ").append(member.getMemberId()).append(" : ")
-        .append(member.getLastName()).append(", ").append(member.getFirstName()).append("\n")
-        .append("  Book ").append(book.id()).append(" : " )
-        .append(book.title()).append("\n")
-        .append("  DueDate: ").append(simpleDateFormat.format(dueDate)).append("\n")
+        .append("  Borrower ").append(memberId).append(" : ")
+        .append(lastName).append(", ").append(firstName).append("\n")
+        .append("  Book ").append(bookId).append(" : ")
+        .append(title).append("\n")
+        .append("  DueDate: ").append(date).append("\n")
         .append("  State: ").append(loanState);		
         return menuEntries.toString();
     }

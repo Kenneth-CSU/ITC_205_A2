@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,8 @@ public class Member implements Serializable {
         .append("\n")
         .append(String.format("  Fines Owed :  $%.2f", fines))
         .append("\n");
-        for (Loan newLoan : memberLoans.values()) {
+        Collection<Loan> loans = memberLoans.values();
+        for (Loan newLoan : loans) {
             memberRecord.append(newLoan).append("\n");
         }		  
         return memberRecord.toString();
@@ -44,7 +46,8 @@ public class Member implements Serializable {
     }
 
     public List<Loan> getLoans() {
-        return new ArrayList<Loan>(memberLoans.values());
+        Collection<Loan> loans =memberLoans.values();
+        return new ArrayList<Loan>(loans);
     }
 
     public int numberOfCurrentLoans() {
@@ -56,8 +59,9 @@ public class Member implements Serializable {
     }
 
     public void takeOutLoan(Loan newLoan) {
-        if (!memberLoans.containsKey(newLoan.loanId())) {
-            memberLoans.put(newLoan.loanId(), newLoan);
+        int newLoanId = newLoan.loanId();
+        if (!memberLoans.containsKey(newLoanId)) {
+            memberLoans.put(newLoanId, newLoan);
         } else {
             throw new RuntimeException("Duplicate loan added to member");
         }		
@@ -90,8 +94,9 @@ public class Member implements Serializable {
     }
 
     public void dischargeLoan(Loan returnLoan) {
-        if (memberLoans.containsKey(returnLoan.loanId())) {
-            memberLoans.remove(returnLoan.loanId());
+        int returnLoanId = returnLoan.loanId();
+        if (memberLoans.containsKey(returnLoanId)) {
+            memberLoans.remove(returnLoanId);
         } else {
             throw new RuntimeException("No such loan held by member");
         }		
