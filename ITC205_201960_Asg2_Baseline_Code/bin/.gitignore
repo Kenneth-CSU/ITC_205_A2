@@ -22,29 +22,6 @@
 /loan$LOAN_STATE.class
 /loan.class
 /member.class
-<<<<<<< Updated upstream
 /Book$BookState.class
 /FixBookUi$UiState.class
 /FixBookUi.class
-=======
-/Book$State.class
-/Book.class
-/BorrowBookControl$ControlState.class
-/BorrowBookUi$UiState.class
-/BorrowBookUi.class
-/FixBookControl$ControlState.class
-/FixBookUI$UiState.class
-/Library.class
-/Loan$LoanState.class
-/Loan.class
-/Member.class
-/PayFineControl$ControlState.class
-/PayFineUi$UiState.class
-/PayFineUi.class
-/ReturnBookControl$ControlState.class
-/ReturnBookControl$Library$CurrentLoan.class
-/ReturnBookControl$Library.class
-/ReturnBookUi$UiState.class
-/ReturnBookUi.class
->>>>>>> Stashed changes
-/bin/

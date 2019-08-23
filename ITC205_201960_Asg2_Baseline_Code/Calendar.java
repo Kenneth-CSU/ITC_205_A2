@@ -11,9 +11,9 @@ public class Calendar {
 	
 	public static Calendar getInstance() {
 		if (thisCalendar == null) {
-                    thisCalendar = new Calendar();
+            thisCalendar = new Calendar();
 		}
-                return thisCalendar;
+            return thisCalendar;
 	}
 	
 	public void incrementDate(int days) {
@@ -22,7 +22,7 @@ public class Calendar {
 	
 	public synchronized void setDate(Date date) {
 		try {
-		calendar.setTime(date);
+		    calendar.setTime(date);
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
 	        calendar.set(java.util.Calendar.MINUTE, 0);  
 	        calendar.set(java.util.Calendar.SECOND, 0);  
@@ -55,7 +55,7 @@ public class Calendar {
 	}
 	
 	public synchronized long getDaysDifference(Date targetDate) {
-            long differenceInMilli = date().getTime() - targetDate.getTime();
+        long differenceInMilli = date().getTime() - targetDate.getTime();
 	    long differenceInDays = TimeUnit.DAYS.convert(differenceInMilli, TimeUnit.MILLISECONDS);
 	    return differenceInDays;
 	}
