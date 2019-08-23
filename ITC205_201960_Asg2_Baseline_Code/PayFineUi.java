@@ -1,45 +1,35 @@
 import java.util.Scanner;
 
-
-public class PayFineUI {
-
-
-	public static enum UI_STATE { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
-
+public class PayFineUi {
+	public static enum UiState { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
 	private PayFineControl paymentControl;	
 	private Scanner inputScanner;
-	private UI_STATE uiState;
-
+	private UiState uiState;
 	
-	public PayFineUI(PayFineControl newPayment) {
+	public PayFineUi(PayFineControl newPayment) {
 		this.paymentControl = newPayment;
 		inputScanner = new Scanner(System.in);
-		uiState = UI_STATE.INITIALISED;
-		newPayment.Set_UI(this);
+		uiState = UiState.INITIALISED;
+		newPayment.setUi(this);
 	}
-	
-	
-	public void Set_State(UI_STATE state) {
+		
+	public void setState(UiState state) {
 		this.uiState = state;
 	}
 
-
-	public void RuN() {
+	public void run() {
 		output("Pay Fine Use Case UI\n");
-		
 		while (true) {
-			
 			switch (uiState) {
-			
 			case READY:
 				String memberCardRead = input("Swipe member card (press <enter> to cancel): ");
 				if (memberCardRead.length() == 0) {
-					paymentControl.CaNcEl();
+					paymentControl.cancel();
 					break;
 				}
 				try {
-					int Member_ID = Integer.valueOf(memberCardRead).intValue();
-					paymentControl.Card_Swiped(Member_ID);
+					int memberId = Integer.valueOf(memberCardRead).intValue();
+					paymentControl.cardSwiped(memberId);
 				}
 				catch (NumberFormatException e) {
 					output("Invalid memberId");
@@ -47,10 +37,11 @@ public class PayFineUI {
 				break;
 				
 			case PAYING:
+
 				double paymentAmount = 0;
 				String newPaymentAmount = input("Enter amount (<Enter> cancels) : ");
 				if (newPaymentAmount.length() == 0) {
-					paymentControl.CaNcEl();
+					paymentControl.cancel();
 					break;
 				}
 				try {
@@ -61,40 +52,32 @@ public class PayFineUI {
 					output("Amount must be positive");
 					break;
 				}
-				paymentControl.PaY_FiNe(paymentAmount);
+				paymentControl.payFine(paymentAmount);
 				break;
 								
 			case CANCELLED:
 				output("Pay Fine process cancelled");
-				return;
-			
+				return;			
 			case COMPLETED:
 				output("Pay Fine process complete");
-				return;
-			
+				return;			
 			default:
 				output("Unhandled state");
 				throw new RuntimeException("FixBookUI : unhandled state :" + uiState);			
-			
 			}		
 		}		
 	}
-
 	
 	private String input(String prompt) {
 		System.out.print(prompt);
 		return inputScanner.nextLine();
 	}	
 		
-		
 	private void output(Object object) {
 		System.out.println(object);
 	}	
-			
 
-	public void DiSplAY(Object object) {
+	public void display(Object object) {
 		output(object);
 	}
-
-
 }
